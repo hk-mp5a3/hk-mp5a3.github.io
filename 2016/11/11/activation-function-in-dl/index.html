@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。比如在下面的这个问题中：">
+    <meta name="description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
 <meta property="og:url" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/index.html">
 <meta property="og:site_name" content="MP5A3">
-<meta property="og:description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。比如在下面的这个问题中：">
+<meta property="og:description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172416233-1532646403.png">
 <meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172548905-1752891707.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111224300905-294466902.png">
 <meta property="og:image" content="http://static.zybuluo.com/rljvvv/x4rptovfkmzgr58kgrxx0aao/2.jpg">
 <meta property="article:published_time" content="2016-11-12T07:07:39.000Z">
-<meta property="article:modified_time" content="2025-09-29T05:01:47.490Z">
+<meta property="article:modified_time" content="2025-09-29T05:21:26.764Z">
 <meta property="article:author" content="MP5A3">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="Machine Learning">
@@ -196,7 +196,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -270,7 +270,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 22:01:47" itemprop="dateModified" datetime="2025-09-28T22:01:47-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 22:21:26" itemprop="dateModified" datetime="2025-09-28T22:21:26-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,8 +317,9 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。<br>比如在下面的这个问题中：</p>
+    <div class="post-body" itemprop="articleBody"><h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。</p>
 <span id="more"></span>
+<p>比如在下面的这个问题中：</p>
 <p><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172416233-1532646403.png"><br>如上图(<a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network">图片来源</a>)，在最简单的情况下，数据是线性可分的，只需要一条直线就已经能够对样本进行很好地分类。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172548905-1752891707.png"><br>但如果情况变得复杂了一点呢？在上图中(<a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network">图片来源</a>)，数据就变成了线性不可分的情况。在这种情况下，简单的一条直线就已经不能够对样本进行很好地分类了。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172555577-1362105224.png"><br>于是我们尝试引入非线性的因素，对样本进行分类。</p>
 <p>在神经网络中也类似，我们需要引入一些非线性的因素，来更好地解决复杂的问题。而激活函数恰好能够帮助我们引入非线性因素，它使得我们的神经网络能够更好地解决较为复杂的问题。</p>
 <hr>
@@ -399,8 +400,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2016/09/01/matlab-plot-vector-field/" rel="prev" title="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
-                  <i class="fa fa-angle-left"></i> MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+                <a href="/2016/11/07/foundation-of-cnn-1/" rel="prev" title="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
+                  <i class="fa fa-angle-left"></i> 深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)
                 </a>
             </div>
             <div class="post-nav-item">
@@ -434,13 +435,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">3k</span>
+    <span title="Word count total">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9 mins.</span>
+    <span title="Reading time total">14 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">

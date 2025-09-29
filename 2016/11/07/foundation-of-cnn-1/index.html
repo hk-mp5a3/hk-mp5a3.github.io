@@ -20,42 +20,39 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="quiver函数一般用于绘制二维矢量场图，函数调用方法如下： 1quiver(x,y,u,v)">
+    <meta name="description" content="卷积卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
-<meta property="og:url" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/index.html">
+<meta property="og:title" content="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/index.html">
 <meta property="og:site_name" content="MP5A3">
-<meta property="og:description" content="quiver函数一般用于绘制二维矢量场图，函数调用方法如下： 1quiver(x,y,u,v)">
+<meta property="og:description" content="卷积卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001170104860-1587625025.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001170142860-559542162.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001164447078-38609081.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001173645219-898795934.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181405953-2546597.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181622656-808630765.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181734578-777274869.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181808281-840198690.jpg">
-<meta property="article:published_time" content="2016-09-02T01:20:00.000Z">
-<meta property="article:modified_time" content="2025-09-29T05:21:15.191Z">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031234338783-938805008.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107214102155-1486373931.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107213813592-822240484.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161101000118611-1216134650.gif">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107215411983-352450273.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107220210405-248002140.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107223655139-1008650738.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107223535702-835783198.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107225730639-1656228312.gif">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107230210436-1795450998.png">
+<meta property="article:published_time" content="2016-11-08T07:22:27.000Z">
+<meta property="article:modified_time" content="2025-09-29T05:35:17.849Z">
 <meta property="article:author" content="MP5A3">
-<meta property="article:tag" content="Data Visualization">
-<meta property="article:tag" content="MATLAB">
-<meta property="article:tag" content="Mathematics">
-<meta property="article:tag" content="Programming Tutorial">
-<meta property="article:tag" content="Scientific Computing">
-<meta property="article:tag" content="Vector Calculus">
+<meta property="article:tag" content="Deep Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png">
 
 
-<link rel="canonical" href="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/">
+<link rel="canonical" href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/","path":"2016/09/01/matlab-plot-vector-field/","title":"MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/","path":"2016/11/07/foundation-of-cnn-1/","title":"深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane) | MP5A3</title>
+<title>深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) | MP5A3</title>
   
 
 
@@ -183,7 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#quiver%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">quiver函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quiver3%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">quiver3函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dfield%E4%B8%8Epplane-%E5%A4%9A%E5%BA%94%E7%94%A8%E4%BA%8E%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">dfield与pplane(多应用于常微分方程)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%9D%83%E9%87%8D%E5%85%B1%E4%BA%AB"><span class="nav-number">2.</span> <span class="nav-text">局部连接与权重共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeNet-5%E4%B8%AD%E7%9A%84%E5%8D%B7%E7%A7%AF%E4%B8%8E%E6%B1%A0%E5%8C%96%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">LeNet-5中的卷积与池化分析</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -234,7 +231,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -247,12 +244,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane) | MP5A3">
+      <meta itemprop="name" content="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) | MP5A3">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+          深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)
         </h1>
 
         <div class="post-meta-container">
@@ -263,14 +260,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2016-09-01 18:20:00" itemprop="dateCreated datePublished" datetime="2016-09-01T18:20:00-07:00">2016-09-01</time>
+      <time title="Created: 2016-11-07 23:22:27" itemprop="dateCreated datePublished" datetime="2016-11-07T23:22:27-08:00">2016-11-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 22:21:15" itemprop="dateModified" datetime="2025-09-28T22:21:15-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 22:35:17" itemprop="dateModified" datetime="2025-09-28T22:35:17-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -278,15 +275,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Programming-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Programming Tutorial</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Programming-Tutorial/MATLAB/" itemprop="url" rel="index"><span itemprop="name">MATLAB</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
         </span>
     </span>
 
@@ -304,14 +293,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>614</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>2 mins.</span>
+      <span>5 mins.</span>
     </span>
 </div>
 
@@ -321,33 +310,50 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="quiver函数"><a href="#quiver函数" class="headerlink" title="quiver函数"></a><a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/quiver.html?requestedDomain=www.mathworks.com">quiver函数</a></h3><p>一般用于绘制二维矢量场图，函数调用方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiver(x,y,u,v)</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。</p>
 <span id="more"></span>
-<p>该函数展示了点<code>(x,y)</code>对应的的矢量<code>(u,v)</code>。其中，<code>x</code>的长度要求等于<code>u</code>、<code>v</code>的列数，<code>y</code>的长度要求等于<code>u</code>、<code>v</code>的行数。在绘制图像的过程中，通常用<code>meshgrid</code>来生成所需的网格采样点。</p>
-<p>下面举几个例子：</p>
-<p>例1：一个最简单的例子，该二维矢量场图中的矢量皆从<code>(0,0)</code>出发，分别指向<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x=[0 0 0 0];</span><br><span class="line">y=x;</span><br><span class="line">u=[1 -1 0 0];</span><br><span class="line">v=[0 0 1 -1];</span><br><span class="line">quiver(x,y,u,v)</span><br></pre></td></tr></table></figure>
-<p>画出下图<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg"></p>
-<p>但我们发现箭头并没有完全指到<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code> 。如果需要箭头完全指到<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code>，我们需要改变<code>scale</code>参数，将其设为<code>1</code>。参考方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiver(x,y,u,v,1)</span><br></pre></td></tr></table></figure>
-<p>　画出图像如下 ：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001170104860-1587625025.jpg"></p>
-<p>当然，也可以改变颜色。改变颜色可以参考<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/linespec.html">LineSpec</a>的设置，参考代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; quiver(x,y,u,v,&#x27;-r&#x27;)  %这里将图像设置为红色</span><br></pre></td></tr></table></figure>
-
-<p>　画出图像如下：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001170142860-559542162.jpg"></p>
-<p>例2：(参考<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/quiver.html?requestedDomain=www.mathworks.com">MathWorks</a>)：已知$$u&#x3D;y\ cos(x), v &#x3D; y\ sin(x)$$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[x,y] = meshgrid(0:0.2:2,0:0.2:2);  %生成所需的网格采样点 x与y在0到2区间 每隔0.2取一个点</span><br><span class="line">u = cos(x).*y;</span><br><span class="line">v = sin(x).*y;</span><br><span class="line">quiver(x,y,u,v) %绘制二维矢量场图</span><br></pre></td></tr></table></figure>
-
-<p>画出下图:<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001164447078-38609081.jpg"></p>
-<h3 id="quiver3函数"><a href="#quiver3函数" class="headerlink" title="quiver3函数"></a><a target="_blank" rel="noopener" href="http://www.mathworks.com/help/matlab/ref/quiver3.html?searchHighlight=quiver3">quiver3函数</a></h3><p>用法与quiver类似，用于三维矢量场图的绘制。</p>
-<p>例3: (参考<a target="_blank" rel="noopener" href="http://www.mathworks.com/help/matlab/ref/quiver3.html?searchHighlight=quiver3">MathWorks</a>)绘制$z&#x3D;y^2-x^2$的三维矢量场图。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; [x,y]=meshgrid(-3:.5:3,-3:.5:3); %生成所需的网格采样点 x与y在-3到3范围内 每隔0.5取一个点</span><br><span class="line">&gt;&gt; z=y.^2-x.^2;</span><br><span class="line">&gt;&gt; [u,v,w]=surfnorm(z); %取三维曲面的法线</span><br><span class="line">&gt;&gt; quiver3(z,u,v,w)  %绘制三维矢量场图</span><br></pre></td></tr></table></figure>
-<p>画出下图：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001173645219-898795934.jpg"></p>
-<h3 id="dfield与pplane-多应用于常微分方程"><a href="#dfield与pplane-多应用于常微分方程" class="headerlink" title="dfield与pplane(多应用于常微分方程)"></a><code>dfield</code>与<code>pplane</code>(多应用于常微分方程)</h3><p>dfield与pplane的原作者是Rice University的John C. Polking，用于解决涉及常微分方程的问题，比较方便，<a target="_blank" rel="noopener" href="http://math.rice.edu/~dfield/index.html">这里</a>可以下载dfield与pplane的.m文件</p>
-<p>在MATLAB中调用dfield，呈现<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181405953-2546597.png"></p>
-<p>如果我们要绘制常微分方程$x’&#x3D;x^2-t$ 对应的矢量场图，我们可以输入对应的公式与参数值。在这里，上图中默认的常微分方程对应矢量场图：<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181622656-808630765.jpg"></p>
-<p>在MATLAB中调用pplane，呈现<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181734578-777274869.jpg"><br>以默认的微分方程为例，可以绘制矢量场图：<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181808281-840198690.jpg"></p>
+<p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png"></p>
+<p>在不改变权重的情况下，把这个上方具有k个输出的小神经网络对应的小块滑遍整个图像，可以得到一个宽度、高度不同，而且深度也不同的新图像。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161031234338783-938805008.png"></p>
+<p>卷积时有很多种填充图像的方法，以下主要介绍两种，一种是相同填充，一种是有效填充。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107214102155-1486373931.png"></p>
+<p>如图中紫色方框所示，左边是有效填充，右边是相同填充。在相同填充中，超出边界的部分使用补充0的办法，使得输入输出的图像尺寸相同。而在有效填充中，则不使用补充0的方法，不能超出边界，因此往往输入的尺寸大于输出的尺寸。</p>
+<p>下图展示了以3x3的网格在28x28的图像上，使用不同步长、填充方法填充所得到的输出图像的尺寸：<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107213813592-822240484.png"></p>
+<p>下面借助两个动图来理解一下卷积的过程：</p>
+<p>第一种是以3x3的网格在5x5的图像上进行有效填充的卷积过程：<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161101000118611-1216134650.gif"></p>
+<p>第二种是使用3x3的网格在5x5图像上进行相同填充的卷积过程，动图在：<a target="_blank" rel="noopener" href="http://cs231n.github.io/convolutional-networks/">http://cs231n.github.io/convolutional-networks/</a><br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107215411983-352450273.png"></p>
+<p>回顾整个过程，就是一层一层地增加网络深度，最终得到一个又深又窄的表示，然后把其连接到全连接层，然后训练分类器。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107220210405-248002140.png"></p>
+<hr>
+<h3 id="局部连接与权重共享"><a href="#局部连接与权重共享" class="headerlink" title="局部连接与权重共享"></a>局部连接与权重共享</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107223655139-1008650738.jpg"></p>
+<p>总体而言，局部连接和权重共享都是减少参数的办法，使得特征提取更为有效。</p>
+<p>上图中左半部分，是全连接神经网络的示例。图中是一个1000x1000的图像，下一隐藏层有$10^6$个神经元，那么就会有1000x1000x$10^6$&#x3D;$10^{12}$个参数。</p>
+<p>上图右半部分，是局部连接神经网络的示例。图中依然是一个1000x1000的图像，下一隐藏层有$10^6$个神经元，但是使用了一个10x10的卷积核，连接到了10x10的局部图像，那么则会有10x10x$10^6$&#x3D;$10^8$个参数。</p>
+<p>可见局部连接可以很大幅度减少参数的数量。</p>
+<p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107223535702-835783198.jpg"></p>
+<p>在实际应用中，有一些情况比较特殊，涉及到了统计不变性的问题。比如我们想识别图像中的动物类别，那么动物在图片中的位置（左上角、中间或是右下角）是不重要的，这叫平移不变性；再比如说，在识别数字的过程中，数字的颜色并不影响结果；又或者说，在语言处理中，一些词汇在句子中的位置并不影响其代表的含义。当两种输入可以获得同样的信息，那么我们就应该共享权重而且利用这些输入来共同训练权重。</p>
+<p>在上图中的左半部分，是未使用权重共享的局部连接神经网络的示例。</p>
+<p>在上图中的右半部分，则使用了权重共享。图中是一个1000x1000的图像，有100个10x10的卷积核，最终会有100x10x10&#x3D;10k个参数。使用局部连接和权重共享都大大地减小了参数数量。而共享权重使得统计不变性问题得到了有效解决。</p>
+<hr>
+<h3 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107225730639-1656228312.gif"></p>
+<p>通过卷积后，为了引入不变性，同时防止过拟合问题或欠拟合问题、降低计算量，我们常进行池化处理。池化过程如上图所示。因此池化过后，通常图像的宽度和高度会变成原来的1&#x2F;2。</p>
+<p>其中包括了Max pooling 、 Mean pooling和Stochastic pooling三种池化方法。</p>
+<p>两种较为常用的是：Max pooling和Mean pooling。Max pooling是选择kernel范围之内的最大值；Mean pooling则是选择kernel范围之内的平均值。</p>
+<hr>
+<h3 id="LeNet-5中的卷积与池化分析"><a href="#LeNet-5中的卷积与池化分析" class="headerlink" title="LeNet-5中的卷积与池化分析"></a>LeNet-5中的卷积与池化分析</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107230210436-1795450998.png"></p>
+<p>在LeNet-5中，输入层是32x32的尺寸。</p>
+<p>在第一次卷积中，使用了6个卷积核，得到了C1:6张28x28的特征图。</p>
+<p>然后进行下采样，得到S2:特征图宽、高变为原来的1&#x2F;2，即28&#x2F;2&#x3D;14，特征图尺寸变为14x14，特征图张数不变。</p>
+<p>再进行第二次卷积，使用了16个卷积核，得到了C3:16张10x10的特征图。</p>
+<p>然后进行下采样，得到S4:特征图宽、高变为原来的1&#x2F;2，即10&#x2F;2&#x3D;5，特征图尺寸变为5x5，特征图张数不变。</p>
+<p>之后进入卷积层C5，120张1x1全连接后的特征图，与S4全连接。</p>
+<hr>
+<p>本文图片及内容均参考或来自如下资料：</p>
+<p>[1] Udacity的Deep Learning课程：<a target="_blank" rel="noopener" href="https://cn.udacity.com/course/deep-learning--ud730">https://cn.udacity.com/course/deep-learning--ud730</a></p>
+<p>[2] Krizhevsky A, Sutskever I, Hinton G E. ImageNet Classification with Deep Convolutional Neural Networks[J]. Advances in Neural Information Processing Systems, 2012, 25(2):2012.</p>
+<p>[3] Lecun Y, Bottou L, Bengio Y, et al. Gradient-based learning applied to document recognition[J]. Proceedings of the IEEE, 1998, 86(11):2278-2324.</p>
+<p>[5] <a target="_blank" rel="noopener" href="http://www.jeyzhang.com/cnn-learning-notes-1.html">http://www.jeyzhang.com/cnn-learning-notes-1.html</a> </p>
+<p>[6] <a target="_blank" rel="noopener" href="http://blog.csdn.net/stdcoutzyx/article/details/41596663">http://blog.csdn.net/stdcoutzyx/article/details/41596663</a></p>
+<p>[7] CS231n: Convolutional Neural Networks for Visual Recognition</p>
+<p>[8] <a target="_blank" rel="noopener" href="http://ibillxia.github.io/blog/2013/04/06/Convolutional-Neural-Networks/">http://ibillxia.github.io/blog/2013/04/06/Convolutional-Neural-Networks/</a> </p>
+<p>本文是个人的学习笔记，水平有限，如有疏漏，敬请指出，不胜感谢。 </p>
 
     </div>
 
@@ -357,22 +363,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Mathematics/" rel="tag"># Mathematics</a>
-              <a href="/tags/Vector-Calculus/" rel="tag"># Vector Calculus</a>
-              <a href="/tags/MATLAB/" rel="tag"># MATLAB</a>
-              <a href="/tags/Scientific-Computing/" rel="tag"># Scientific Computing</a>
-              <a href="/tags/Data-Visualization/" rel="tag"># Data Visualization</a>
-              <a href="/tags/Programming-Tutorial/" rel="tag"># Programming Tutorial</a>
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2016/09/01/matlab-plot-vector-field/" rel="prev" title="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
+                  <i class="fa fa-angle-left"></i> MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2016/11/07/foundation-of-cnn-1/" rel="next" title="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
-                  深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) <i class="fa fa-angle-right"></i>
+                <a href="/2016/11/11/activation-function-in-dl/" rel="next" title="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
+                  浅谈深度学习中的激活函数 The Activation Function in Deep Learning <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
