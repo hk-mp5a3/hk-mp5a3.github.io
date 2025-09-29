@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="MP5A3">
 <meta property="og:description" content="在机器学习中，我们常常会遇到不均衡的数据集。比如癌症数据集中，癌症样本的数量可能远少于非癌症样本的数量；在银行的信用数据集中，按期还款的客户数量可能远大于违约客户的样本数量。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-31ace681d5001fd408cc94c9d7b99233_b.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-8c5911b2a0656d883f9bc394135b84c0_b.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-d45a57c28521e8906d0dea768cba666d_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/1015872-20180822212157209-357151691.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/v2-31ace681d5001fd408cc94c9d7b99233_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/v2-8c5911b2a0656d883f9bc394135b84c0_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/v2-d45a57c28521e8906d0dea768cba666d_b.png">
 <meta property="og:image" content="https://pic1.zhimg.com/v2-43dae5ee6c653595e46734f694691da4_b.png">
 <meta property="article:published_time" content="2018-08-23T04:27:49.000Z">
 <meta property="article:modified_time" content="2025-09-29T06:56:14.741Z">
 <meta property="article:author" content="MP5A3">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/1015872-20180822212157209-357151691.png">
 
 
 <link rel="canonical" href="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/">
@@ -263,13 +263,6 @@
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 23:56:14" itemprop="dateModified" datetime="2025-09-28T23:56:14-07:00">2025-09-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">In</span>
@@ -335,7 +328,7 @@
 <p>注：github开源项目<a target="_blank" rel="noopener" href="https://github.com/scikit-learn-contrib/imbalanced-learn">github-scikit-learn-contrib&#x2F;imbalanced-learn</a>中提供了本回答中大部分算法的实现代码，并配有详细的文档和注释。</p>
 <hr>
 <h2 id="过采样-Over-sampling"><a href="#过采样-Over-sampling" class="headerlink" title="过采样 Over-sampling"></a>过采样 Over-sampling</h2><p>过采样即是将本来数量少的那类样本增加。目前比较常见的方法包含了SMOTE, ADASYN, SVM SMOTE,bSMOTE。其中，SMOTE和ADASYN算法的实现也可以参考<a target="_blank" rel="noopener" href="https://github.com/hk-mp5a3/Class-Imbalance">这个github项目</a>。</p>
-<p>我可视化了一下结果：比如说在下图中，蓝色三角形代表的是多数样本(不妨设为正例)，绿色三角形代表的是原始的少数样本(不妨设为反例)，而红色圆点则是使用SMOTE算法生成的反例。<br><img src="/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png"><br>类似地，ADASYN也可以有类似的效果。<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-31ace681d5001fd408cc94c9d7b99233_b.png"><br>不过，SMOTE在一些情况下表现得并不是特别好，也不是很稳定，这也与它本身的算法思路有关。我们可以对比一下在下面情况下SMOTE和ADASYN的表现：<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png"><br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-8c5911b2a0656d883f9bc394135b84c0_b.png"><br>但ADASYN也不是完美无缺的——当分割两个类别样本能够清晰地被划分而且数据点间隔很大时ADASYN会出现NaN。例如在以下的情况，ADASYN就很可能会出问题：<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-d45a57c28521e8906d0dea768cba666d_b.png"></p>
+<p>我可视化了一下结果：比如说在下图中，蓝色三角形代表的是多数样本(不妨设为正例)，绿色三角形代表的是原始的少数样本(不妨设为反例)，而红色圆点则是使用SMOTE算法生成的反例。<br><img src="/2018/08/22/handle-imbalanced-data/1015872-20180822212157209-357151691.png"><br>类似地，ADASYN也可以有类似的效果。<br><img src="/2018/08/22/handle-imbalanced-data/v2-31ace681d5001fd408cc94c9d7b99233_b.png"><br>不过，SMOTE在一些情况下表现得并不是特别好，也不是很稳定，这也与它本身的算法思路有关。我们可以对比一下在下面情况下SMOTE和ADASYN的表现：<br><img src="/2018/08/22/handle-imbalanced-data/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png"><br><img src="/2018/08/22/handle-imbalanced-data/v2-8c5911b2a0656d883f9bc394135b84c0_b.png"><br>但ADASYN也不是完美无缺的——当分割两个类别样本能够清晰地被划分而且数据点间隔很大时ADASYN会出现NaN。例如在以下的情况，ADASYN就很可能会出问题：<br><img src="/2018/08/22/handle-imbalanced-data/v2-d45a57c28521e8906d0dea768cba666d_b.png"></p>
 <ul>
 <li>SMOTE：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1106.1813.pdf">SMOTE: Synthetic Minority Over-sampling Technique</a></li>
 <li>ADASYN：<a target="_blank" rel="noopener" href="http://sci2s.ugr.es/keel/pdf/algorithm/congreso/2008-He-ieee.pdf">ADASYN: Adaptive Synthetic Sampling Approach for Imbalanced Learning</a></li>
