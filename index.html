@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -251,7 +251,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 22:01:47" itemprop="dateModified" datetime="2025-09-28T22:01:47-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 22:21:26" itemprop="dateModified" datetime="2025-09-28T22:21:26-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -292,10 +292,117 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。<br>比如在下面的这个问题中：</p>
+          <h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2016/11/11/activation-function-in-dl/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MP5A3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MP5A3">
+      <meta itemprop="description" content="°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | MP5A3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/11/07/foundation-of-cnn-1/" class="post-title-link" itemprop="url">深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-11-07 23:22:27" itemprop="dateCreated datePublished" datetime="2016-11-07T23:22:27-08:00">2016-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-09-28 22:35:17" itemprop="dateModified" datetime="2025-09-28T22:35:17-07:00">2025-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>5 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/11/07/foundation-of-cnn-1/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -362,7 +469,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 22:06:00" itemprop="dateModified" datetime="2025-09-28T22:06:00-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 22:21:15" itemprop="dateModified" datetime="2025-09-28T22:21:15-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -409,8 +516,6 @@
     <div class="post-body" itemprop="articleBody">
           <h3 id="quiver函数"><a href="#quiver函数" class="headerlink" title="quiver函数"></a><a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/quiver.html?requestedDomain=www.mathworks.com">quiver函数</a></h3><p>一般用于绘制二维矢量场图，函数调用方法如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiver(x,y,u,v)</span><br></pre></td></tr></table></figure>
-
-<p>该函数展示了点<code>(x,y)</code>对应的的矢量<code>(u,v)</code>。其中，<code>x</code>的长度要求等于<code>u</code>、<code>v</code>的列数，<code>y</code>的长度要求等于<code>u</code>、<code>v</code>的行数。在绘制图像的过程中，通常用<code>meshgrid</code>来生成所需的网格采样点。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2016/09/01/matlab-plot-vector-field/#more" rel="contents">
@@ -456,13 +561,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">3k</span>
+    <span title="Word count total">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9 mins.</span>
+    <span title="Reading time total">14 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
