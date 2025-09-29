@@ -20,42 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="quiver函数一般用于绘制二维矢量场图，函数调用方法如下： 1quiver(x,y,u,v)">
+    <meta name="description" content="问题的出现这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
-<meta property="og:url" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/index.html">
+<meta property="og:title" content="TensorFlow | ReluGrad input is not finite. Tensor had NaN values">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/index.html">
 <meta property="og:site_name" content="MP5A3">
-<meta property="og:description" content="quiver函数一般用于绘制二维矢量场图，函数调用方法如下： 1quiver(x,y,u,v)">
+<meta property="og:description" content="问题的出现这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001170104860-1587625025.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001170142860-559542162.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001164447078-38609081.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001173645219-898795934.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181405953-2546597.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181622656-808630765.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181734578-777274869.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001181808281-840198690.jpg">
-<meta property="article:published_time" content="2016-09-02T01:20:00.000Z">
-<meta property="article:modified_time" content="2025-09-29T05:21:15.191Z">
+<meta property="article:published_time" content="2017-07-25T06:05:08.000Z">
+<meta property="article:modified_time" content="2025-09-29T06:12:35.234Z">
 <meta property="article:author" content="MP5A3">
-<meta property="article:tag" content="Data Visualization">
-<meta property="article:tag" content="MATLAB">
-<meta property="article:tag" content="Mathematics">
-<meta property="article:tag" content="Programming Tutorial">
-<meta property="article:tag" content="Scientific Computing">
-<meta property="article:tag" content="Vector Calculus">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="TensorFlow">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg">
 
 
-<link rel="canonical" href="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/">
+<link rel="canonical" href="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/","path":"2016/09/01/matlab-plot-vector-field/","title":"MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/","path":"2017/07/24/relugrad-input-is-not-finite/","title":"TensorFlow | ReluGrad input is not finite. Tensor had NaN values"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane) | MP5A3</title>
+<title>TensorFlow | ReluGrad input is not finite. Tensor had NaN values | MP5A3</title>
   
 
 
@@ -183,7 +169,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#quiver%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">quiver函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quiver3%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">quiver3函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dfield%E4%B8%8Epplane-%E5%A4%9A%E5%BA%94%E7%94%A8%E4%BA%8E%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">dfield与pplane(多应用于常微分方程)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E5%87%BA%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">问题的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E9%80%9F%E7%8E%87"><span class="nav-number">2.1.</span> <span class="nav-text">学习速率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -238,7 +224,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/09/01/matlab-plot-vector-field/">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -251,12 +237,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane) | MP5A3">
+      <meta itemprop="name" content="TensorFlow | ReluGrad input is not finite. Tensor had NaN values | MP5A3">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+          TensorFlow | ReluGrad input is not finite. Tensor had NaN values
         </h1>
 
         <div class="post-meta-container">
@@ -267,14 +253,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2016-09-01 18:20:00" itemprop="dateCreated datePublished" datetime="2016-09-01T18:20:00-07:00">2016-09-01</time>
+      <time title="Created: 2017-07-24 23:05:08" itemprop="dateCreated datePublished" datetime="2017-07-24T23:05:08-07:00">2017-07-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 22:21:15" itemprop="dateModified" datetime="2025-09-28T22:21:15-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 23:12:35" itemprop="dateModified" datetime="2025-09-28T23:12:35-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,15 +268,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Programming-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Programming Tutorial</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Programming-Tutorial/MATLAB/" itemprop="url" rel="index"><span itemprop="name">MATLAB</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
         </span>
     </span>
 
@@ -308,7 +286,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>614</span>
+      <span>645</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -325,33 +303,32 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="quiver函数"><a href="#quiver函数" class="headerlink" title="quiver函数"></a><a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/quiver.html?requestedDomain=www.mathworks.com">quiver函数</a></h3><p>一般用于绘制二维矢量场图，函数调用方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiver(x,y,u,v)</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：</p>
 <span id="more"></span>
-<p>该函数展示了点<code>(x,y)</code>对应的的矢量<code>(u,v)</code>。其中，<code>x</code>的长度要求等于<code>u</code>、<code>v</code>的列数，<code>y</code>的长度要求等于<code>u</code>、<code>v</code>的行数。在绘制图像的过程中，通常用<code>meshgrid</code>来生成所需的网格采样点。</p>
-<p>下面举几个例子：</p>
-<p>例1：一个最简单的例子，该二维矢量场图中的矢量皆从<code>(0,0)</code>出发，分别指向<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x=[0 0 0 0];</span><br><span class="line">y=x;</span><br><span class="line">u=[1 -1 0 0];</span><br><span class="line">v=[0 0 1 -1];</span><br><span class="line">quiver(x,y,u,v)</span><br></pre></td></tr></table></figure>
-<p>画出下图<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001165733672-1330115906.jpg"></p>
-<p>但我们发现箭头并没有完全指到<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code> 。如果需要箭头完全指到<code>(1,0)</code> 、<code>(-1,0)</code> 、<code>(0,1)</code> 、<code>(0,-1)</code>，我们需要改变<code>scale</code>参数，将其设为<code>1</code>。参考方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quiver(x,y,u,v,1)</span><br></pre></td></tr></table></figure>
-<p>　画出图像如下 ：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001170104860-1587625025.jpg"></p>
-<p>当然，也可以改变颜色。改变颜色可以参考<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/linespec.html">LineSpec</a>的设置，参考代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; quiver(x,y,u,v,&#x27;-r&#x27;)  %这里将图像设置为红色</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y_conv))</span><br><span class="line">train_step = tf.train.AdamOptimizer(<span class="number">1e-4</span>).minimize(cross_entropy)</span><br></pre></td></tr></table></figure>
 
-<p>　画出图像如下：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001170142860-559542162.jpg"></p>
-<p>例2：(参考<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/ref/quiver.html?requestedDomain=www.mathworks.com">MathWorks</a>)：已知$$u&#x3D;y\ cos(x), v &#x3D; y\ sin(x)$$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[x,y] = meshgrid(0:0.2:2,0:0.2:2);  %生成所需的网格采样点 x与y在0到2区间 每隔0.2取一个点</span><br><span class="line">u = cos(x).*y;</span><br><span class="line">v = sin(x).*y;</span><br><span class="line">quiver(x,y,u,v) %绘制二维矢量场图</span><br></pre></td></tr></table></figure>
+<p>学习速率是$(1e-4)$的时候是没有问题，但是当我把学习速率调到$0.01&#x2F;0.5$的时候，很快就会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorflow.python.framework.errors.InvalidArgumentError: ReluGrad input is not finite. : Tensor had NaN values</span><br></pre></td></tr></table></figure>
 
-<p>画出下图:<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001164447078-38609081.jpg"></p>
-<h3 id="quiver3函数"><a href="#quiver3函数" class="headerlink" title="quiver3函数"></a><a target="_blank" rel="noopener" href="http://www.mathworks.com/help/matlab/ref/quiver3.html?searchHighlight=quiver3">quiver3函数</a></h3><p>用法与quiver类似，用于三维矢量场图的绘制。</p>
-<p>例3: (参考<a target="_blank" rel="noopener" href="http://www.mathworks.com/help/matlab/ref/quiver3.html?searchHighlight=quiver3">MathWorks</a>)绘制$z&#x3D;y^2-x^2$的三维矢量场图。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; [x,y]=meshgrid(-3:.5:3,-3:.5:3); %生成所需的网格采样点 x与y在-3到3范围内 每隔0.5取一个点</span><br><span class="line">&gt;&gt; z=y.^2-x.^2;</span><br><span class="line">&gt;&gt; [u,v,w]=surfnorm(z); %取三维曲面的法线</span><br><span class="line">&gt;&gt; quiver3(z,u,v,w)  %绘制三维矢量场图</span><br></pre></td></tr></table></figure>
-<p>画出下图：<br><img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001173645219-898795934.jpg"></p>
-<h3 id="dfield与pplane-多应用于常微分方程"><a href="#dfield与pplane-多应用于常微分方程" class="headerlink" title="dfield与pplane(多应用于常微分方程)"></a><code>dfield</code>与<code>pplane</code>(多应用于常微分方程)</h3><p>dfield与pplane的原作者是Rice University的John C. Polking，用于解决涉及常微分方程的问题，比较方便，<a target="_blank" rel="noopener" href="http://math.rice.edu/~dfield/index.html">这里</a>可以下载dfield与pplane的.m文件</p>
-<p>在MATLAB中调用dfield，呈现<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181405953-2546597.png"></p>
-<p>如果我们要绘制常微分方程$x’&#x3D;x^2-t$ 对应的矢量场图，我们可以输入对应的公式与参数值。在这里，上图中默认的常微分方程对应矢量场图：<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181622656-808630765.jpg"></p>
-<p>在MATLAB中调用pplane，呈现<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181734578-777274869.jpg"><br>以默认的微分方程为例，可以绘制矢量场图：<img src="/2016/09/01/matlab-plot-vector-field/1015872-20161001181808281-840198690.jpg"></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="学习速率"><a href="#学习速率" class="headerlink" title="学习速率"></a>学习速率</h3><p>于是我尝试加上几行代码，希望能把<code>y_conv</code>和<code>cross_entropy</code>的状态反映出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y_conv = tf.Print(y_conv, [y_conv], <span class="string">&quot;y_conv: &quot;</span>)</span><br><span class="line">cross_entropy = tf.Print(cross_entropy, [cross_entropy], <span class="string">&quot;cross_entropy: &quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>当learning rate&#x3D;0.01时，程序会报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [3.0374929e-06 0.0059775524 0.980205...]</span><br><span class="line">step 0, training accuracy 0.04</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [9.2028862e-10 1.4812358e-05 0.044873074...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [648.49146]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.024463326 1.4828938e-31 0...]</span><br><span class="line">step 1, training accuracy 0.2</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [2.4634053e-11 3.3087209e-34 0...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [nan]</span><br><span class="line">step 2, training accuracy 0.14</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [nan nan nan...]</span><br><span class="line">W tensorflow/core/common_runtime/executor.cc:1027] 0x7ff51d92a940 Compute status: Invalid argument: ReluGrad input is not finite. : Tensor had NaN values</span><br></pre></td></tr></table></figure>
+<p>当learning rate $&#x3D;1e-4$时，程序不会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.00056920078 8.4922984e-09 0.00033719366...]</span><br><span class="line">step 0, training accuracy 0.14</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [7.0613837e-10 9.28294e-09 0.00016230672...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [439.95135]</span><br><span class="line">step 1, training accuracy 0.16</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.031509314 3.6221365e-05 0.015359053...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [3.7112056e-07 1.8543299e-09 8.9234991e-06...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [436.37653]</span><br><span class="line">step 2, training accuracy 0.12</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.015578311 0.0026688741 0.44736364...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [6.0428465e-07 0.0001744287 0.026451336...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [385.33765]</span><br></pre></td></tr></table></figure>
+<p>至此，我们可以看到，学习速率太大是产生error其中一个原因。</p>
+<p>参考斯坦福<a target="_blank" rel="noopener" href="https://cs224d.stanford.edu/lecture_notes/LectureNotes4.pdf">CS 224D的Lecture Note</a>，在训练深度神经网络的时候，出现NaN比较大的可能是因为学习速率过大，梯度值过大，产生梯度爆炸。</p>
+<blockquote>
+<p>During experimentation, once the gradient value grows extremely large, it causes an overflow (i.e. NaN) which is easily detectable at runtime; this issue is called the Gradient Explosion Problem.</p>
+</blockquote>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>适当减小学习速率 </li>
+<li>加入Gradient clipping的方法。 Gradient clipping的方法最早是由Thomas Mikolov提出的。每当梯度达到一定的阈值，就把他们设置回一个小一些的数字。<br>Refer to the <a target="_blank" rel="noopener" href="https://cs224d.stanford.edu/lecture_notes/LectureNotes4.pdf">lecture note of Stanford CS 224D</a>, use gradient clipping. <blockquote>
+<p>To solve the problem of exploding gradients, Thomas Mikolov first introduced a simple heuristic solution that clips gradients to a small number whenever they explode. That is, whenever they reach a certain threshold, they are set back to a small number as shown in Algorithm 1.</p>
+</blockquote>
+</li>
+</ol>
+<p>Algorithm 1:<br>$\frac{\partial E}{\partial W}\to g$<br>if $ \Vert g\Vert\ge threshold$  then<br>$\frac {threshold}{\Vert g\Vert} g\to g$<br>end if</p>
 
     </div>
 
@@ -361,23 +338,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Mathematics/" rel="tag"># Mathematics</a>
-              <a href="/tags/Vector-Calculus/" rel="tag"># Vector Calculus</a>
-              <a href="/tags/MATLAB/" rel="tag"># MATLAB</a>
-              <a href="/tags/Scientific-Computing/" rel="tag"># Scientific Computing</a>
-              <a href="/tags/Data-Visualization/" rel="tag"># Data Visualization</a>
-              <a href="/tags/Programming-Tutorial/" rel="tag"># Programming Tutorial</a>
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2016/11/11/activation-function-in-dl/" rel="prev" title="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
+                  <i class="fa fa-angle-left"></i> 浅谈深度学习中的激活函数 The Activation Function in Deep Learning
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2016/11/07/foundation-of-cnn-1/" rel="next" title="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
-                  深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
