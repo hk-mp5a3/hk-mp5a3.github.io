@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="上一篇笔记主要介绍了卷积神经网络相关的基础知识。在本篇笔记中，将参考TensorFlow官方文档使用mnist数据集，在TensorFlow上训练一个多层卷积神经网络。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/index.html">
+<meta property="og:site_name" content="MP5A3">
+<meta property="og:description" content="上一篇笔记主要介绍了卷积神经网络相关的基础知识。在本篇笔记中，将参考TensorFlow官方文档使用mnist数据集，在TensorFlow上训练一个多层卷积神经网络。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/1015872-20161110214243420-685796554.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/QQ20161110-1.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/QQ20161110-2.png">
+<meta property="article:published_time" content="2016-11-11T07:01:41.000Z">
+<meta property="article:modified_time" content="2025-09-29T06:04:13.248Z">
+<meta property="article:author" content="MP5A3">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/1015872-20161110214243420-685796554.png">
+
+
+<link rel="canonical" href="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/","path":"2016/11/10/foundation-of-cnn-2/","title":"深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络 | MP5A3</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MP5A3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">‧₊˚❀༉‧₊˚. Notes on mathematics and software engineering❀˖°༉‧₊˚.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AF%BC%E5%85%A5mnist%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">下载并导入mnist数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E4%B8%80%E4%B8%AA%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%9A%84TensorFlow%E4%BC%9A%E8%AF%9D"><span class="nav-number">2.</span> <span class="nav-text">进入一个交互式的TensorFlow会话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%8D%A0%E4%BD%8D%E7%AC%A6%E5%A4%84%E7%90%86%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">利用占位符处理输入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%87%8D%E4%B8%8E%E5%81%8F%E7%BD%AE%E9%A1%B9%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">权重与偏置项初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E4%B8%8E%E6%B1%A0%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">卷积与池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%E5%8D%B7%E7%A7%AF"><span class="nav-number">6.</span> <span class="nav-text">第一层卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%B1%A0%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">第一次池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%E5%8D%B7%E7%A7%AF%E4%B8%8E%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%B1%A0%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">第二层卷积与第二次池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E9%9B%86%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="nav-number">9.</span> <span class="nav-text">密集连接层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout"><span class="nav-number">10.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%88%AB%E9%A2%84%E6%B5%8B%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="nav-number">11.</span> <span class="nav-text">类别预测与输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%84%E4%BB%B7"><span class="nav-number">12.</span> <span class="nav-text">模型的评价</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MP5A3</p>
+  <div class="site-description" itemprop="description">°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/11/10/foundation-of-cnn-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MP5A3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MP5A3">
+      <meta itemprop="description" content="°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络 | MP5A3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-11-10 23:01:41" itemprop="dateCreated datePublished" datetime="2016-11-10T23:01:41-08:00">2016-11-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-09-28 23:04:13" itemprop="dateModified" datetime="2025-09-28T23:04:13-07:00">2025-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">上一篇笔记</a>主要介绍了卷积神经网络相关的基础知识。在本篇笔记中，将参考<a target="_blank" rel="noopener" href="http://tensorfly.cn/tfdoc/tutorials/mnist_pros.html">TensorFlow官方文档</a>使用mnist数据集，在TensorFlow上训练一个多层卷积神经网络。</p>
+<span id="more"></span>
+
+<h2 id="下载并导入mnist数据集"><a href="#下载并导入mnist数据集" class="headerlink" title="下载并导入mnist数据集"></a>下载并导入mnist数据集</h2><p> 首先，利用<a target="_blank" rel="noopener" href="https://github.com/rgvb178/tensorflow-zh/blob/patch-1/tex_pdf/tutorials/input_data.py">input_data.py</a>来下载并导入mnist数据集。在这个过程中，数据集会被下载并存储到名为”MNIST_data”的目录中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">&#x27;MNIST_data&#x27;</span>, one_hot=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>其中mnist是一个轻量级的类，其中以Numpy数组的形式中存储着训练集、验证集、测试集。</p>
+<hr>
+<h2 id="进入一个交互式的TensorFlow会话"><a href="#进入一个交互式的TensorFlow会话" class="headerlink" title="进入一个交互式的TensorFlow会话"></a>进入一个交互式的TensorFlow会话</h2><p>TensorFlow实际上对应的是一个C++后端，TensorFlow使用会话(Session)与后端连接。通常，我们都会先创建一个图，然后再在会话(Session)中启动它。而<code>InteractiveSession</code>给了我们一个交互式会话的机会，使得我们可以在运行图(Graph)的时候再插入计算图，否则就要在启动会话之前构建整个计算图。使用<code>InteractiveSession</code>会使得我们的工作更加便利，所以大部分情况下，尤其是在交互环境下，我们都会选择<code>InteractiveSession</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">sess = tf.InteractiveSession()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="利用占位符处理输入数据"><a href="#利用占位符处理输入数据" class="headerlink" title="利用占位符处理输入数据"></a>利用占位符处理输入数据</h2><p> 关于占位符的概念，官方给出的解释是“不是特定的值，而是可以在TensorFlow运行某一计算时根据该占位符输入具体的值”。这里也比较容易理解。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = tf.placeholder(<span class="string">&quot;float&quot;</span>, shape=[<span class="literal">None</span>, <span class="number">784</span>])</span><br></pre></td></tr></table></figure>
+<p>x代表的是输入图片的浮点数张量，因此定义dtype为<code>float</code>。其中，shape的None代表了没有指定张量的shape，可以feed任何shape的张量，在这里指batch的大小未定。一张mnist图像的大小是<code>28*28</code>，784是一张展平的mnist图像的维度，即<code>28*28＝784</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y_ = tf.placeholder(<span class="string">&quot;float&quot;</span>, shape=[<span class="literal">None</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<p>由于mnist数据集是手写数字的数据集，所以分的类别也只有10类，分别代表了0～9十个数字。</p>
+<hr>
+<h2 id="权重与偏置项初始化"><a href="#权重与偏置项初始化" class="headerlink" title="权重与偏置项初始化"></a>权重与偏置项初始化</h2><p>在对权重初始化的过程中，我们加入少量的噪声来打破对称性与避免梯度消失，在这里我们设定权重的标准差为0.1。 由于我们使用的激活函数是ReLU，而ReLU的定义是$$y&#x3D;<br>\begin{cases}<br>0&amp; (x\ge0)\\<br>x&amp; (x&lt;0)<br>\end{cases}$$<br>ReLU对应的图像是下图左边的函数图像。<br><img src="/2016/11/10/foundation-of-cnn-2/1015872-20161110214243420-685796554.png"><br>但是我们可以注意到，ReLU在$x&lt;0$的部分是硬饱和的，所以随着训练推进，部分输入可能会落到硬饱和区，导致权重无法更新，出现“神经元死亡”。虽然在之后的研究中，有人提出了PReLU和ELU等新的激活函数来改进，但我们在这里的训练，还是应该用一个较小的正数来初始化偏置项，避免神经元节点输出恒为0的问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化权重</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">weight_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    initial = tf.truncated_normal(shape, stddev=<span class="number">0.1</span>)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(initial)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化偏置项</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bias_variable</span>(<span class="params">shape</span>):</span><br><span class="line">    initial = tf.constant(<span class="number">0.1</span>, shape=shape)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(initial)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="卷积与池化"><a href="#卷积与池化" class="headerlink" title="卷积与池化"></a>卷积与池化</h2><p>在这里，我们使用步长为1、相同填充(padding&#x3D;’SAME’)的办法进行卷积，关于相同填充和有效填充的区别在<a href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">上一篇笔记</a>讲得比较清楚了，在这里就不赘述了。与此同时，使用2x2的网格以max pooling的方法池化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卷积过程</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">conv2d</span>(<span class="params">x, w</span>):</span><br><span class="line">    <span class="keyword">return</span> tf.nn.conv2d(x, w, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">&quot;SAME&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 池化过程</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">max_pool_2x2</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> tf.nn.max_pool(x, ksize=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">&quot;SAME&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第一层卷积"><a href="#第一层卷积" class="headerlink" title="第一层卷积"></a>第一层卷积</h2><p><code>(1 #28x28-&gt;32 #28x28)</code><br>首先在每个5x5网格中，提取出32张特征图。其中weight_variable中前两维是指网格的大小，第三维的1是指输入通道数目，第四维的32是指输出通道数目（也可以理解为使用的卷积核个数、得到的特征图张数）。每个输出通道都有一个偏置项，因此偏置项个数为32。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w_conv1 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">32</span>])</span><br><span class="line">b_conv1 = bias_variable([<span class="number">32</span>])</span><br></pre></td></tr></table></figure>
+<p>为了使之能用于计算，我们使用reshape将其转换为四维的tensor，其中第一维的－1是指我们可以先不指定，第二三维是指图像的大小，第四维对应颜色通道数目，灰度图对应1，rgb图对应3.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x_image = tf.reshape(x, [-<span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>而后，我们利用ReLU激活函数，对其进行第一次卷积。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h_conv1 = tf.nn.relu(conv2d(x_image, w_conv1) + b_conv1)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第一次池化"><a href="#第一次池化" class="headerlink" title="第一次池化"></a>第一次池化</h2><p><code>(32 #28x28-&gt;32 #14x14)</code><br>比较容易理解，使用2x2的网格以max pooling的方法池化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h_pool1 = max_pool_2x2(h_conv1)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第二层卷积与第二次池化"><a href="#第二层卷积与第二次池化" class="headerlink" title="第二层卷积与第二次池化"></a>第二层卷积与第二次池化</h2><p><code>(32 #14x14-&gt;64 #14x14-&gt;64 #7x7)</code><br>与第一层卷积、第一次池化类似的过程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">w_conv2 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="number">64</span>])</span><br><span class="line">b_conv2 = bias_variable([<span class="number">64</span>])</span><br><span class="line"></span><br><span class="line">h_conv2 = tf.nn.relu(conv2d(h_pool1, w_conv2) + b_conv2)</span><br><span class="line">h_pool2 = max_pool_2x2(h_conv2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="密集连接层"><a href="#密集连接层" class="headerlink" title="密集连接层"></a>密集连接层</h2><p>此时，图片是7x7的大小。我们在这里加入一个有1024个神经元的全连接层。之后把刚才池化后输出的张量reshape成一个一维向量，再将其与权重相乘，加上偏置项，再通过一个ReLU激活函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w_fc1=weight_variable([<span class="number">7</span>*<span class="number">7</span>*<span class="number">64</span>,<span class="number">1024</span>])</span><br><span class="line">b_fc1=bias_variable([<span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line">h_pool2_flat=tf.reshape(h_pool2,[-<span class="number">1</span>,<span class="number">7</span>*<span class="number">7</span>*<span class="number">64</span>])</span><br><span class="line">h_fc1=tf.nn.relu(tf.matmul(h_pool2_flat,w_fc1)+b_fc1)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keep_prob=tf.placeholder(<span class="string">&quot;float&quot;</span>)</span><br><span class="line">h_fc1_drop=tf.nn.dropout(h_fc1,keep_prob)</span><br></pre></td></tr></table></figure>
+<p>这是一个比较新的也非常好用的防止过拟合的方法，想出这个方法的人基本属于非常crazy的存在。在<a target="_blank" rel="noopener" href="https://classroom.udacity.com/courses/ud730/lessons/6379031992/concepts/63722671800923#">Udacity-Deep Learning</a>的课程中有提到这个方法——完全随机选取经过神经网络流一半的数据来训练，在每次训练过程中用0来替代被丢掉的激活值，其它激活值合理缩放。<br><img src="/2016/11/10/foundation-of-cnn-2/QQ20161110-1.png"><br><img src="/2016/11/10/foundation-of-cnn-2/QQ20161110-2.png"></p>
+<hr>
+<h2 id="类别预测与输出"><a href="#类别预测与输出" class="headerlink" title="类别预测与输出"></a>类别预测与输出</h2><p>应用了简单的softmax，输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">w_fc2=weight_variable([<span class="number">1024</span>,<span class="number">10</span>])</span><br><span class="line">b_fc2=bias_variable([<span class="number">10</span>])</span><br><span class="line"></span><br><span class="line">y_conv=tf.nn.softmax(tf.matmul(h_fc1_drop,w_fc2)+b_fc2)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="模型的评价"><a href="#模型的评价" class="headerlink" title="模型的评价"></a>模型的评价</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#计算交叉熵的代价函数</span></span><br><span class="line">cross_entropy = -tf.reduce_sum(y_*tf.log(y_conv))</span><br><span class="line"><span class="comment">#使用优化算法使得代价函数最小化</span></span><br><span class="line">train_step = tf.train.AdamOptimizer(<span class="number">1e-4</span>).minimize(cross_entropy)</span><br><span class="line"><span class="comment">#找出预测正确的标签</span></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(y_conv,<span class="number">1</span>), tf.argmax(y_,<span class="number">1</span>))</span><br><span class="line"><span class="comment">#得出通过正确个数除以总数得出准确率</span></span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, <span class="string">&quot;float&quot;</span>))</span><br><span class="line">sess.run(tf.initialize_all_variables())</span><br><span class="line"><span class="comment">#每100次迭代输出一次日志，共迭代20000次</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20000</span>):</span><br><span class="line">  batch = mnist.train.next_batch(<span class="number">50</span>)</span><br><span class="line">  <span class="keyword">if</span> i%<span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">    train_accuracy = accuracy.<span class="built_in">eval</span>(feed_dict=&#123;</span><br><span class="line">        x:batch[<span class="number">0</span>], y_: batch[<span class="number">1</span>], keep_prob: <span class="number">1.0</span>&#125;)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;step %d, training accuracy %g&quot;</span>%(i, train_accuracy)</span><br><span class="line">  train_step.run(feed_dict=&#123;x: batch[<span class="number">0</span>], y_: batch[<span class="number">1</span>], keep_prob: <span class="number">0.5</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;test accuracy %g&quot;</span>%accuracy.<span class="built_in">eval</span>(feed_dict=&#123;</span><br><span class="line">    x: mnist.test.images, y_: mnist.test.labels, keep_prob: <span class="number">1.0</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>本文代码与部分内容来源或参考自：<br><a target="_blank" rel="noopener" href="http://tensorfly.cn/tfdoc/tutorials/mnist_pros.html">TensorFlow官方文档</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22142013">深度学习中的激活函数导引</a><br><a target="_blank" rel="noopener" href="https://classroom.udacity.com/courses/ud730/lessons/6379031992/concepts/63722671800923#">Udacity-Deep Learning</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/11/07/foundation-of-cnn-1/" rel="prev" title="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
+                  <i class="fa fa-angle-left"></i> 深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/11/11/activation-function-in-dl/" rel="next" title="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
+                  浅谈深度学习中的激活函数 The Activation Function in Deep Learning <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">MP5A3</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">6k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">21 mins.</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
