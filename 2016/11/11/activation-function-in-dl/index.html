@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。比如在下面的这个问题中：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/index.html">
+<meta property="og:site_name" content="MP5A3">
+<meta property="og:description" content="激活函数的作用首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。比如在下面的这个问题中：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172416233-1532646403.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172548905-1752891707.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172555577-1362105224.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172602124-975763476.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111212723342-1857392794.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111212906327-145918784.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111173702217-558562359.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111215108295-1799912495.jpg">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111221416827-317168603.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111222702295-1595850649.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111223256327-2116806837.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111224300905-294466902.png">
+<meta property="og:image" content="http://static.zybuluo.com/rljvvv/x4rptovfkmzgr58kgrxx0aao/2.jpg">
+<meta property="article:published_time" content="2016-11-12T07:07:39.000Z">
+<meta property="article:modified_time" content="2025-09-29T05:01:47.490Z">
+<meta property="article:author" content="MP5A3">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/1015872-20161111172416233-1532646403.png">
+
+
+<link rel="canonical" href="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/","path":"2016/11/11/activation-function-in-dl/","title":"浅谈深度学习中的激活函数 The Activation Function in Deep Learning"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>浅谈深度学习中的激活函数 The Activation Function in Deep Learning | MP5A3</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MP5A3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">‧₊˚❀༉‧₊˚. Notes on mathematics and software engineering❀˖°༉‧₊˚.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">激活函数的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%85%B6%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">激活函数的定义及其相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sigmoid%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">Sigmoid函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tanh%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">tanh函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReLU"><span class="nav-number">2.3.</span> <span class="nav-text">ReLU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LReLU%E3%80%81PReLU%E4%B8%8ERReLU"><span class="nav-number">2.4.</span> <span class="nav-text">LReLU、PReLU与RReLU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ELU"><span class="nav-number">2.5.</span> <span class="nav-text">ELU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Softplus%E4%B8%8ESoftsign"><span class="nav-number">2.6.</span> <span class="nav-text">Softplus与Softsign</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MP5A3</p>
+  <div class="site-description" itemprop="description">°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/11/11/activation-function-in-dl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MP5A3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MP5A3">
+      <meta itemprop="description" content="°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･°❀⋆.ೃ࿔*:･">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="浅谈深度学习中的激活函数 The Activation Function in Deep Learning | MP5A3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅谈深度学习中的激活函数 The Activation Function in Deep Learning
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-11-11 23:07:39" itemprop="dateCreated datePublished" datetime="2016-11-11T23:07:39-08:00">2016-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-09-28 22:01:47" itemprop="dateModified" datetime="2025-09-28T22:01:47-07:00">2025-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>首先，激活函数不是真的要去激活什么。在神经网络中，激活函数的作用是能够给神经网络加入一些非线性因素，使得神经网络可以更好地解决较为复杂的问题。<br>比如在下面的这个问题中：</p>
+<span id="more"></span>
+<p><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172416233-1532646403.png"><br>如上图(<a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network">图片来源</a>)，在最简单的情况下，数据是线性可分的，只需要一条直线就已经能够对样本进行很好地分类。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172548905-1752891707.png"><br>但如果情况变得复杂了一点呢？在上图中(<a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network">图片来源</a>)，数据就变成了线性不可分的情况。在这种情况下，简单的一条直线就已经不能够对样本进行很好地分类了。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172555577-1362105224.png"><br>于是我们尝试引入非线性的因素，对样本进行分类。</p>
+<p>在神经网络中也类似，我们需要引入一些非线性的因素，来更好地解决复杂的问题。而激活函数恰好能够帮助我们引入非线性因素，它使得我们的神经网络能够更好地解决较为复杂的问题。</p>
+<hr>
+<h3 id="激活函数的定义及其相关概念"><a href="#激活函数的定义及其相关概念" class="headerlink" title="激活函数的定义及其相关概念"></a>激活函数的定义及其相关概念</h3><p>在ICML2016的一篇论文<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1603.00391v3.pdf">Noisy Activation Functions</a>中，作者将激活函数定义为一个几乎处处可微的 h : R → R 。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111172602124-975763476.jpg"></p>
+<p>在实际应用中，我们还会涉及到以下的一些概念：<br><strong>a.饱和</strong><br>当一个激活函数$h(x)$满足$$\lim_{n\to +\infty} h’(x)&#x3D;0$$时我们称之为<strong>右饱和</strong>。</p>
+<p>当一个激活函数$h(x)$满足$$\lim_{n\to -\infty} h’(x)&#x3D;0$$时我们称之为<strong>左饱和</strong>。当一个激活函数，既满足左饱和又满足又饱和时，我们称之为<strong>饱和</strong>。</p>
+<p><strong>b.硬饱和与软饱和</strong><br>对任意的$x$，如果存在常数$c$，当$x &gt; c$时恒有 $h’(x) &#x3D; 0$则称其为<strong>右硬饱和</strong>，当$x &lt; c$时恒 有$h’(x)&#x3D;0$则称其为<strong>左硬饱和</strong>。若既满足左硬饱和，又满足右硬饱和，则称这种激活函数为<strong>硬饱和</strong>。但如果只有在极限状态下偏导数等于0的函数，称之为<strong>软饱和</strong>。</p>
+<hr>
+<h4 id="Sigmoid函数"><a href="#Sigmoid函数" class="headerlink" title="Sigmoid函数"></a>Sigmoid函数</h4><p>Sigmoid函数曾被广泛地应用，但由于其自身的一些缺陷，现在很少被使用了。Sigmoid函数被定义为：$$f(x)&#x3D;\frac{1}{1+e^{-x}}$$函数对应的图像是：<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111212723342-1857392794.jpg"></p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>Sigmoid函数的输出映射在$(0,1)$之间，单调连续，输出范围有限，优化稳定，可以用作输出层。</li>
+<li>求导容易。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>由于其软饱和性，容易产生梯度消失，导致训练出现问题。</li>
+<li>其输出并不是以0为中心的。</li>
+</ol>
+<hr>
+<h4 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h4><p>现在，比起Sigmoid函数我们通常更倾向于tanh函数。tanh函数被定义为$$tanh(x)&#x3D;\frac{1-e^{-2x}}{1+e^{-2x}}$$<br>函数位于[-1, 1]区间上，对应的图像是：<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111212906327-145918784.jpg"><br><strong>优点：</strong></p>
+<ol>
+<li>比Sigmoid函数收敛速度更快。</li>
+<li>相比Sigmoid函数，其输出以0为中心。<br><strong>缺点：</strong><br>还是没有改变Sigmoid函数的最大问题——由于饱和性产生的梯度消失。</li>
+</ol>
+<hr>
+<h4 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h4><p>ReLU是最近几年非常受欢迎的激活函数。被定义为$$y&#x3D;<br>\begin{cases}<br>0&amp; (x\le0)\\<br>x&amp; (x&gt;0)<br>\end{cases}$$对应的图像是：<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111173702217-558562359.jpg"><br>但是除了ReLU本身的之外，TensorFlow还提供了一些相关的函数，比如定义为<code>min(max(features, 0), 6)</code>的<code>tf.nn.relu6(features, name=None)</code>或是CReLU，即<code>tf.nn.crelu(features, name=None)</code>。其中CReLU部分可以参考<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1603.05201v2.pdf">这篇论文</a>。<br><strong>优点：</strong></p>
+<ol>
+<li>相比起Sigmoid和tanh，ReLU<a target="_blank" rel="noopener" href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">(e.g. a factor of 6 in Krizhevsky et al.)</a>在SGD中能够快速收敛。例如在下图的实验中，在一个四层的卷积神经网络中，实线代表了ReLU，虚线代表了tanh，ReLU比起tanh更快地到达了错误率0.25处。据称，这是因为它线性、非饱和的形式。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111215108295-1799912495.jpg"></li>
+<li>Sigmoid和tanh涉及了很多很expensive的操作（比如指数），ReLU可以更加简单的实现。</li>
+<li>有效缓解了梯度消失的问题。</li>
+<li>在没有无监督预训练的时候也能有较好的表现。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111221416827-317168603.png"></li>
+<li>提供了神经网络的稀疏表达能力。</li>
+</ol>
+<p><strong>缺点：</strong><br>随着训练的进行，可能会出现神经元死亡，权重无法更新的情况。如果发生这种情况，那么流经神经元的梯度从这一点开始将永远是0。也就是说，ReLU神经元在训练中不可逆地死亡了。</p>
+<hr>
+<h4 id="LReLU、PReLU与RReLU"><a href="#LReLU、PReLU与RReLU" class="headerlink" title="LReLU、PReLU与RReLU"></a>LReLU、PReLU与RReLU</h4><p><img src="/2016/11/11/activation-function-in-dl/1015872-20161111222702295-1595850649.png"></p>
+<p>通常在LReLU和PReLU中，我们定义一个激活函数为<br>$$f(y_i)&#x3D;\begin{cases}<br>y_i&amp; if(y_i&gt;0)\\<br>a_iy_i&amp; if(y_i\le0)<br>\end{cases}$$</p>
+<ul>
+<li><p><strong>LReLU</strong><br>当$a_i$比较小而且固定的时候，我们称之为LReLU。LReLU最初的目的是为了避免梯度消失。但在一些实验中，我们发现LReLU对准确率并没有太大的影响。很多时候，当我们想要应用LReLU时，我们必须要非常小心谨慎地重复训练，选取出合适的$a$，LReLU的表现出的结果才比ReLU好。因此有人提出了一种自适应地从数据中学习参数的PReLU。</p>
+</li>
+<li><p><strong>PReLU</strong><br>PReLU是LReLU的改进，可以自适应地从数据中学习参数。PReLU具有收敛速度快、错误率低的特点。PReLU可以用于反向传播的训练，可以与其他层同时优化。<br> <img src="/2016/11/11/activation-function-in-dl/1015872-20161111223256327-2116806837.png"><br>在论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1502.01852">Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</a>中，作者就对比了PReLU和ReLU在ImageNet model A的训练效果。<br>值得一提的是，在tflearn中有现成的LReLU和PReLU可以直接用。</p>
+</li>
+<li><p><strong>RReLU</strong><br>在RReLU中，我们有$$y_{ji}&#x3D;\begin{cases}<br>x_{ji}&amp; if(x_{ji}&gt;0)\\<br>a_{ji}x_{ji}&amp; if(x_{ji}\le0)<br>\end{cases}$$$$a_{ji} \sim U(l,u),l&lt;u\ and \ l,u\in [0,1) $$<br>其中，$a_{ji}$是一个保持在给定范围内取样的随机变量，在测试中是固定的。RReLU在一定程度上能起到正则效果。<br><img src="/2016/11/11/activation-function-in-dl/1015872-20161111224300905-294466902.png"><br>在论文<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1505.00853">Empirical Evaluation of Rectified Activations in Convolution Network</a>中，作者对比了RReLU、LReLU、PReLU、ReLU 在CIFAR-10、CIFAR-100、NDSB网络中的效果。</p>
+</li>
+</ul>
+<hr>
+<h4 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h4><p>ELU被定义为$$f(x)&#x3D;\begin{cases}<br>a(e^x-1)&amp; if(x&lt;0)\\<br>x&amp; if(0\le x)<br>\end{cases}$$其中$a&gt;0$。<br><img src="http://static.zybuluo.com/rljvvv/x4rptovfkmzgr58kgrxx0aao/2.jpg" alt="2.jpg-34.2kB"></p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>ELU减少了正常梯度与单位自然梯度之间的差距，从而加快了学习。</li>
+<li>在负的限制条件下能够更有鲁棒性。</li>
+</ol>
+<p>ELU相关部分可以参考<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1511.07289v5.pdf">这篇论文</a>。</p>
+<hr>
+<h4 id="Softplus与Softsign"><a href="#Softplus与Softsign" class="headerlink" title="Softplus与Softsign"></a>Softplus与Softsign</h4><p>Softplus被定义为$$f(x)&#x3D;log(e^x+1)$$<br>Softsign被定义为$$f(x)&#x3D;\frac{x}{|x|+1}$$<br>目前使用的比较少，在这里就不详细讨论了。TensorFlow里也有现成的可供使用。<a target="_blank" rel="noopener" href="https://www.tensorflow.org/api_docs/python/nn/activation_functions_#top_of_page">激活函数相关TensorFlow的官方文档</a></p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>关于激活函数的选取，目前还不存在定论，实践过程中更多还是需要结合实际情况，考虑不同激活函数的优缺点综合使用。同时，也期待越来越多的新想法，改进目前存在的不足。</p>
+<blockquote>
+<p>文章部分图片或内容参考自：<br><a target="_blank" rel="noopener" href="http://cs231n.github.io/neural-networks-1/">CS231n Convolutional Neural Networks for Visual Recognition</a><br><a target="_blank" rel="noopener" href="https://www.quora.com/What-is-the-role-of-the-activation-function-in-a-neural-network">Quora - What is the role of the activation function in a neural network?</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22142013">深度学习中的激活函数导引</a><br><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1603.00391v3.pdf">Noisy Activation Functions－ICML2016</a></p>
+</blockquote>
+<hr>
+<p>本文为作者的个人学习笔记，转载请先声明。如有疏漏，欢迎指出，不胜感谢。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/09/01/matlab-plot-vector-field/" rel="prev" title="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
+                  <i class="fa fa-angle-left"></i> MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">MP5A3</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">3k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">9 mins.</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
