@@ -20,40 +20,34 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="卷积卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。">
+    <meta name="description" content="在机器学习中，我们常常会遇到不均衡的数据集。比如癌症数据集中，癌症样本的数量可能远少于非癌症样本的数量；在银行的信用数据集中，按期还款的客户数量可能远大于违约客户的样本数量。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
-<meta property="og:url" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/index.html">
+<meta property="og:title" content="机器学习|如何处理机器学习中的非均衡数据集？">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/index.html">
 <meta property="og:site_name" content="MP5A3">
-<meta property="og:description" content="卷积卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。">
+<meta property="og:description" content="在机器学习中，我们常常会遇到不均衡的数据集。比如癌症数据集中，癌症样本的数量可能远少于非癌症样本的数量；在银行的信用数据集中，按期还款的客户数量可能远大于违约客户的样本数量。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031234338783-938805008.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107214102155-1486373931.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107213813592-822240484.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161101000118611-1216134650.gif">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107215411983-352450273.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107220210405-248002140.png">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107223655139-1008650738.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107223535702-835783198.jpg">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107225730639-1656228312.gif">
-<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161107230210436-1795450998.png">
-<meta property="article:published_time" content="2016-11-08T07:22:27.000Z">
-<meta property="article:modified_time" content="2025-09-29T06:05:49.293Z">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-31ace681d5001fd408cc94c9d7b99233_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-8c5911b2a0656d883f9bc394135b84c0_b.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/v2-d45a57c28521e8906d0dea768cba666d_b.png">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-43dae5ee6c653595e46734f694691da4_b.png">
+<meta property="article:published_time" content="2018-08-23T04:27:49.000Z">
+<meta property="article:modified_time" content="2025-09-29T06:56:14.741Z">
 <meta property="article:author" content="MP5A3">
-<meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png">
 
 
-<link rel="canonical" href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">
+<link rel="canonical" href="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/","path":"2016/11/07/foundation-of-cnn-1/","title":"深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/","path":"2018/08/22/handle-imbalanced-data/","title":"机器学习|如何处理机器学习中的非均衡数据集？"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) | MP5A3</title>
+<title>机器学习|如何处理机器学习中的非均衡数据集？ | MP5A3</title>
   
 
 
@@ -181,7 +175,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%9D%83%E9%87%8D%E5%85%B1%E4%BA%AB"><span class="nav-number">2.</span> <span class="nav-text">局部连接与权重共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeNet-5%E4%B8%AD%E7%9A%84%E5%8D%B7%E7%A7%AF%E4%B8%8E%E6%B1%A0%E5%8C%96%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">LeNet-5中的卷积与池化分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E9%87%87%E6%A0%B7-Over-sampling"><span class="nav-number">1.</span> <span class="nav-text">过采样 Over-sampling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E9%87%87%E6%A0%B7-Under-sampling"><span class="nav-number">2.</span> <span class="nav-text">下采样 Under-sampling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E9%87%87%E6%A0%B7%E4%B8%8E%E4%B8%8B%E9%87%87%E6%A0%B7%E7%BB%93%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">上采样与下采样结合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E6%88%90%E9%87%87%E6%A0%B7-Ensemble-sampling"><span class="nav-number">4.</span> <span class="nav-text">集成采样 Ensemble sampling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E4%BB%B7%E6%95%8F%E6%84%9F%E5%AD%A6%E4%B9%A0-Cost-Sensitive-Learning"><span class="nav-number">5.</span> <span class="nav-text">代价敏感学习 Cost-Sensitive Learning</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,7 +230,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/11/07/foundation-of-cnn-1/">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2018/08/22/handle-imbalanced-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -249,12 +243,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) | MP5A3">
+      <meta itemprop="name" content="机器学习|如何处理机器学习中的非均衡数据集？ | MP5A3">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)
+          机器学习|如何处理机器学习中的非均衡数据集？
         </h1>
 
         <div class="post-meta-container">
@@ -265,14 +259,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2016-11-07 23:22:27" itemprop="dateCreated datePublished" datetime="2016-11-07T23:22:27-08:00">2016-11-07</time>
+      <time title="Created: 2018-08-22 21:27:49" itemprop="dateCreated datePublished" datetime="2018-08-22T21:27:49-07:00">2018-08-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-28 23:05:49" itemprop="dateModified" datetime="2025-09-28T23:05:49-07:00">2025-09-28</time>
+      <time title="Modified: 2025-09-28 23:56:14" itemprop="dateModified" datetime="2025-09-28T23:56:14-07:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,7 +274,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+          <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
         </span>
     </span>
 
@@ -298,14 +292,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>1.4k</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>5 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -315,50 +309,52 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>卷积神经网络(Convolutional Neural Networks)是一种在空间上共享参数的神经网络。使用数层卷积，而不是数层的矩阵相乘。在图像的处理过程中，每一张图片都可以看成一张“薄饼”，其中包括了图片的高度、宽度和深度（即颜色，用RGB表示）。</p>
-<span id="more"></span>
-<p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161031235422783-1729874620.png"></p>
-<p>在不改变权重的情况下，把这个上方具有k个输出的小神经网络对应的小块滑遍整个图像，可以得到一个宽度、高度不同，而且深度也不同的新图像。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161031234338783-938805008.png"></p>
-<p>卷积时有很多种填充图像的方法，以下主要介绍两种，一种是相同填充，一种是有效填充。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107214102155-1486373931.png"></p>
-<p>如图中紫色方框所示，左边是有效填充，右边是相同填充。在相同填充中，超出边界的部分使用补充0的办法，使得输入输出的图像尺寸相同。而在有效填充中，则不使用补充0的方法，不能超出边界，因此往往输入的尺寸大于输出的尺寸。</p>
-<p>下图展示了以3x3的网格在28x28的图像上，使用不同步长、填充方法填充所得到的输出图像的尺寸：<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107213813592-822240484.png"></p>
-<p>下面借助两个动图来理解一下卷积的过程：</p>
-<p>第一种是以3x3的网格在5x5的图像上进行有效填充的卷积过程：<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161101000118611-1216134650.gif"></p>
-<p>第二种是使用3x3的网格在5x5图像上进行相同填充的卷积过程，动图在：<a target="_blank" rel="noopener" href="http://cs231n.github.io/convolutional-networks/">http://cs231n.github.io/convolutional-networks/</a><br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107215411983-352450273.png"></p>
-<p>回顾整个过程，就是一层一层地增加网络深度，最终得到一个又深又窄的表示，然后把其连接到全连接层，然后训练分类器。<br><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107220210405-248002140.png"></p>
+    <div class="post-body" itemprop="articleBody"><p>在机器学习中，我们常常会遇到不均衡的数据集。比如癌症数据集中，癌症样本的数量可能远少于非癌症样本的数量；在银行的信用数据集中，按期还款的客户数量可能远大于违约客户的样本数量。<br> <span id="more"></span><br>比如非常有名的<a target="_blank" rel="noopener" href="https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29">德国信用数据集</a>，正负样本的分类就不是很均衡：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">好客户(Good, 0)</th>
+<th align="right">坏客户(Bad, 1)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">样本数量</td>
+<td align="center">700</td>
+<td align="right">300</td>
+</tr>
+</tbody></table>
+<p>如果不做任何处理简单地进行训练，那么训练结果中（以SVM为例），大部分好客户（约97%）能被正确地识别为好客户，但是大部分的坏客户（约95%）却会被识别为好客户。这个时候，如果我们仅仅使用accuracy来评价模型，那么银行可能会承受违约带来的巨大损失。在南大周志华老师的《机器学习》“模型的选择与评价”部分中，就提到了使用Precision、Recall、F1 Score(加权平均Precision和Recall)等更全面评价模型的方法。本文将探讨如何解决机器学习中遇到的分类非均衡问题：</p>
+<ul>
+<li>过采样 Over-sampling</li>
+<li>下采样 Under-sampling</li>
+<li>上采样与下采样结合</li>
+<li>集成采样 Ensemble sampling</li>
+<li>代价敏感学习 Cost-Sensitive Learning</li>
+</ul>
+<p>注：github开源项目<a target="_blank" rel="noopener" href="https://github.com/scikit-learn-contrib/imbalanced-learn">github-scikit-learn-contrib&#x2F;imbalanced-learn</a>中提供了本回答中大部分算法的实现代码，并配有详细的文档和注释。</p>
 <hr>
-<h3 id="局部连接与权重共享"><a href="#局部连接与权重共享" class="headerlink" title="局部连接与权重共享"></a>局部连接与权重共享</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107223655139-1008650738.jpg"></p>
-<p>总体而言，局部连接和权重共享都是减少参数的办法，使得特征提取更为有效。</p>
-<p>上图中左半部分，是全连接神经网络的示例。图中是一个1000x1000的图像，下一隐藏层有$10^6$个神经元，那么就会有1000x1000x$10^6$&#x3D;$10^{12}$个参数。</p>
-<p>上图右半部分，是局部连接神经网络的示例。图中依然是一个1000x1000的图像，下一隐藏层有$10^6$个神经元，但是使用了一个10x10的卷积核，连接到了10x10的局部图像，那么则会有10x10x$10^6$&#x3D;$10^8$个参数。</p>
-<p>可见局部连接可以很大幅度减少参数的数量。</p>
-<p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107223535702-835783198.jpg"></p>
-<p>在实际应用中，有一些情况比较特殊，涉及到了统计不变性的问题。比如我们想识别图像中的动物类别，那么动物在图片中的位置（左上角、中间或是右下角）是不重要的，这叫平移不变性；再比如说，在识别数字的过程中，数字的颜色并不影响结果；又或者说，在语言处理中，一些词汇在句子中的位置并不影响其代表的含义。当两种输入可以获得同样的信息，那么我们就应该共享权重而且利用这些输入来共同训练权重。</p>
-<p>在上图中的左半部分，是未使用权重共享的局部连接神经网络的示例。</p>
-<p>在上图中的右半部分，则使用了权重共享。图中是一个1000x1000的图像，有100个10x10的卷积核，最终会有100x10x10&#x3D;10k个参数。使用局部连接和权重共享都大大地减小了参数数量。而共享权重使得统计不变性问题得到了有效解决。</p>
+<h2 id="过采样-Over-sampling"><a href="#过采样-Over-sampling" class="headerlink" title="过采样 Over-sampling"></a>过采样 Over-sampling</h2><p>过采样即是将本来数量少的那类样本增加。目前比较常见的方法包含了SMOTE, ADASYN, SVM SMOTE,bSMOTE。其中，SMOTE和ADASYN算法的实现也可以参考<a target="_blank" rel="noopener" href="https://github.com/hk-mp5a3/Class-Imbalance">这个github项目</a>。</p>
+<p>我可视化了一下结果：比如说在下图中，蓝色三角形代表的是多数样本(不妨设为正例)，绿色三角形代表的是原始的少数样本(不妨设为反例)，而红色圆点则是使用SMOTE算法生成的反例。<br><img src="/2016/11/07/foundation-of-cnn-1/ta/1015872-20180822212157209-357151691.png"><br>类似地，ADASYN也可以有类似的效果。<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-31ace681d5001fd408cc94c9d7b99233_b.png"><br>不过，SMOTE在一些情况下表现得并不是特别好，也不是很稳定，这也与它本身的算法思路有关。我们可以对比一下在下面情况下SMOTE和ADASYN的表现：<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-48aeb7104b40a76dac48edc4ef5f6e1f_b.png"><br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-8c5911b2a0656d883f9bc394135b84c0_b.png"><br>但ADASYN也不是完美无缺的——当分割两个类别样本能够清晰地被划分而且数据点间隔很大时ADASYN会出现NaN。例如在以下的情况，ADASYN就很可能会出问题：<br><img src="/2016/11/07/foundation-of-cnn-1/ta/v2-d45a57c28521e8906d0dea768cba666d_b.png"></p>
+<ul>
+<li>SMOTE：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1106.1813.pdf">SMOTE: Synthetic Minority Over-sampling Technique</a></li>
+<li>ADASYN：<a target="_blank" rel="noopener" href="http://sci2s.ugr.es/keel/pdf/algorithm/congreso/2008-He-ieee.pdf">ADASYN: Adaptive Synthetic Sampling Approach for Imbalanced Learning</a></li>
+</ul>
 <hr>
-<h3 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107225730639-1656228312.gif"></p>
-<p>通过卷积后，为了引入不变性，同时防止过拟合问题或欠拟合问题、降低计算量，我们常进行池化处理。池化过程如上图所示。因此池化过后，通常图像的宽度和高度会变成原来的1&#x2F;2。</p>
-<p>其中包括了Max pooling 、 Mean pooling和Stochastic pooling三种池化方法。</p>
-<p>两种较为常用的是：Max pooling和Mean pooling。Max pooling是选择kernel范围之内的最大值；Mean pooling则是选择kernel范围之内的平均值。</p>
+<h2 id="下采样-Under-sampling"><a href="#下采样-Under-sampling" class="headerlink" title="下采样 Under-sampling"></a>下采样 Under-sampling</h2><p>下采样即是将本来数量多的那类样本减少。随机下采样就不用说了，实现非常简单。但它的表现并不是很好，因此又有了一些新方法，比较知名的有：</p>
+<ul>
+<li>Tomek links</li>
+<li>One-sided selection: <a target="_blank" rel="noopener" href="http://sci2s.ugr.es/keel/pdf/algorithm/congreso/kubat97addressing.pdf">Addressing the curse of imbalanced training sets: One-sided selection</a></li>
+<li>Neighboorhood Cleaning Rule: <a target="_blank" rel="noopener" href="https://pdfs.semanticscholar.org/0e75/4db8253e84cde4ade4b6f5ba768a6150569a.pdf">Improving identification of difficult small classes by balancing class distribution</a></li>
+<li>NearMiss: <a target="_blank" rel="noopener" href="https://www.site.uottawa.ca/~nat/Workshop2003/jzhang.pdf">kNN approach to unbalanced data distributions: A case study involving information extraction</a></li>
+</ul>
 <hr>
-<h3 id="LeNet-5中的卷积与池化分析"><a href="#LeNet-5中的卷积与池化分析" class="headerlink" title="LeNet-5中的卷积与池化分析"></a>LeNet-5中的卷积与池化分析</h3><p><img src="/2016/11/07/foundation-of-cnn-1/1015872-20161107230210436-1795450998.png"></p>
-<p>在LeNet-5中，输入层是32x32的尺寸。</p>
-<p>在第一次卷积中，使用了6个卷积核，得到了C1:6张28x28的特征图。</p>
-<p>然后进行下采样，得到S2:特征图宽、高变为原来的1&#x2F;2，即28&#x2F;2&#x3D;14，特征图尺寸变为14x14，特征图张数不变。</p>
-<p>再进行第二次卷积，使用了16个卷积核，得到了C3:16张10x10的特征图。</p>
-<p>然后进行下采样，得到S4:特征图宽、高变为原来的1&#x2F;2，即10&#x2F;2&#x3D;5，特征图尺寸变为5x5，特征图张数不变。</p>
-<p>之后进入卷积层C5，120张1x1全连接后的特征图，与S4全连接。</p>
+<h2 id="上采样与下采样结合"><a href="#上采样与下采样结合" class="headerlink" title="上采样与下采样结合"></a>上采样与下采样结合</h2><p>顾名思义，将原本比较多的样本所属类别的样本减少，同时也将原本属于少数的样本类别中的样本增加。</p>
 <hr>
-<p>本文图片及内容均参考或来自如下资料：</p>
-<p>[1] Udacity的Deep Learning课程：<a target="_blank" rel="noopener" href="https://cn.udacity.com/course/deep-learning--ud730">https://cn.udacity.com/course/deep-learning--ud730</a></p>
-<p>[2] Krizhevsky A, Sutskever I, Hinton G E. ImageNet Classification with Deep Convolutional Neural Networks[J]. Advances in Neural Information Processing Systems, 2012, 25(2):2012.</p>
-<p>[3] Lecun Y, Bottou L, Bengio Y, et al. Gradient-based learning applied to document recognition[J]. Proceedings of the IEEE, 1998, 86(11):2278-2324.</p>
-<p>[5] <a target="_blank" rel="noopener" href="http://www.jeyzhang.com/cnn-learning-notes-1.html">http://www.jeyzhang.com/cnn-learning-notes-1.html</a> </p>
-<p>[6] <a target="_blank" rel="noopener" href="http://blog.csdn.net/stdcoutzyx/article/details/41596663">http://blog.csdn.net/stdcoutzyx/article/details/41596663</a></p>
-<p>[7] CS231n: Convolutional Neural Networks for Visual Recognition</p>
-<p>[8] <a target="_blank" rel="noopener" href="http://ibillxia.github.io/blog/2013/04/06/Convolutional-Neural-Networks/">http://ibillxia.github.io/blog/2013/04/06/Convolutional-Neural-Networks/</a> </p>
-<p>本文是个人的学习笔记，水平有限，如有疏漏，敬请指出，不胜感谢。 </p>
+<h2 id="集成采样-Ensemble-sampling"><a href="#集成采样-Ensemble-sampling" class="headerlink" title="集成采样 Ensemble sampling"></a>集成采样 Ensemble sampling</h2><p>如我们所知，一些下采样的方法可能会使我们丢失一些比较重要的数据点，但是Xu-Ying Liu, Jianxin Wu, and Zhi-Hua Zhou的论文<a target="_blank" rel="noopener" href="http://sci2s.ugr.es/keel/pdf/algorithm/articulo/2009-IEEE%20TSMCpartB%20Exploratory%20Undersampling%20for%20Class%20Imbalance%20Learning.pdf">Exploratory Undersampling for Class-Imbalance Learning</a>中提出了EasyEnsemble和BalanceCascade的方法一定程度上解决了这个问题。<br>在论文中，作者提到，EasyEnsemble的思想有一部分与Balanced Random Forests相似，但是EasyEnsemble使用了样本来随机训练决策树。</p>
+<hr>
+<h2 id="代价敏感学习-Cost-Sensitive-Learning"><a href="#代价敏感学习-Cost-Sensitive-Learning" class="headerlink" title="代价敏感学习 Cost-Sensitive Learning"></a>代价敏感学习 Cost-Sensitive Learning</h2><p>我们都知道比起将一个正常客户误判为不良贷款客户，将一个不良贷款客户误判为正常客户可能会给银行带来更大的损失；比起将非癌症病人误判为癌症病人，将癌症病人误判为非癌症病人可能会导致治疗无法及时进行从而导致更严重的后果。于是就有了cost-sensitive learning这样的思路——来解决这种样本分类不均衡的问题。这部分可以参考Charles X. Ling, Victor S. Sheng的论文<a target="_blank" rel="noopener" href="http://www.csd.uwo.ca/faculty/ling/papers/cost_sensitive.pdf">Cost-Sensitive Learning and the Class Imbalance Problem</a>：<img src="https://pic1.zhimg.com/v2-43dae5ee6c653595e46734f694691da4_b.png">
+ </p>
 
     </div>
 
@@ -368,22 +364,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
-              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2016/09/01/matlab-plot-vector-field/" rel="prev" title="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
-                  <i class="fa fa-angle-left"></i> MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
+                <a href="/2017/07/24/relugrad-input-is-not-finite/" rel="prev" title="TensorFlow | ReluGrad input is not finite. Tensor had NaN values">
+                  <i class="fa fa-angle-left"></i> TensorFlow | ReluGrad input is not finite. Tensor had NaN values
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2016/11/10/foundation-of-cnn-2/" rel="next" title="深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络">
-                  深度学习笔记 (二) 在TensorFlow上训练一个多层卷积神经网络 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
