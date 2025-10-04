@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="引入快慢指针经常用于链表(linked list)中环(Cycle)相关的问题。LeetCode中对应题目分别是：  141. Linked List Cycle 判断linked list中是否有环 142. Linked List Cycle II 找到环的起始节点（entry node）位置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【算法分析】如何理解快慢指针？判断linked list中是否有环、找到环的起始节点位置。以Leetcode 141. Linked List Cycle, 142. Linked List Cycle II 为例 | Python实现">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/index.html">
+<meta property="og:site_name" content="MP5A3">
+<meta property="og:description" content="引入快慢指针经常用于链表(linked list)中环(Cycle)相关的问题。LeetCode中对应题目分别是：  141. Linked List Cycle 判断linked list中是否有环 142. Linked List Cycle II 找到环的起始节点（entry node）位置。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/image1.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/image2.png">
+<meta property="article:published_time" content="2018-10-23T18:44:18.000Z">
+<meta property="article:modified_time" content="2025-10-04T10:54:26.615Z">
+<meta property="article:author" content="MP5A3">
+<meta property="article:tag" content="Data Structures and Algorithms">
+<meta property="article:tag" content="Online Judge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/image1.png">
+
+
+<link rel="canonical" href="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/","path":"2018/10/23/fast-slow-pointer/","title":"【算法分析】如何理解快慢指针？判断linked list中是否有环、找到环的起始节点位置。以Leetcode 141. Linked List Cycle, 142. Linked List Cycle II 为例 | Python实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【算法分析】如何理解快慢指针？判断linked list中是否有环、找到环的起始节点位置。以Leetcode 141. Linked List Cycle, 142. Linked List Cycle II 为例 | Python实现 | MP5A3</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MP5A3</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">‧₊˚❀༉‧₊˚.笔记/思考/实践❀˖°༉‧₊˚.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>文章列表</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A6%82%E6%9E%9C%E6%9C%89%E7%8E%AF%EF%BC%8C%E5%88%99%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E5%BF%85%E5%AE%9A%E4%BC%9A%E7%9B%B8%E9%81%87%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">问题详解 - 为什么如果有环，则快慢指针必定会相遇？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%AF%A6%E8%A7%A3-%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E7%8E%AF%E7%9A%84%E8%B5%B7%E5%A7%8B%E8%8A%82%E7%82%B9%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">问题详解 - 如何找到环的起始节点？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode%E5%AF%B9%E5%BA%94%E9%97%AE%E9%A2%98%E5%8F%8A%E5%85%B6%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.</span> <span class="nav-text">LeetCode对应问题及其代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%ADLinked-List%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF-141-Linked-List-Cycle"><span class="nav-number">5.1.</span> <span class="nav-text">判断Linked List中是否有环 (141. Linked List Cycle)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E7%8E%AF%E7%9A%84%E8%B5%B7%E5%A7%8B%E8%8A%82%E7%82%B9-entry-node-%E4%BD%8D%E7%BD%AE-142-Linked-List-Cycle-II"><span class="nav-number">5.2.</span> <span class="nav-text">找到环的起始节点(entry node)位置 (142. Linked List Cycle II)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MP5A3</p>
+  <div class="site-description" itemprop="description">♥｡･ﾟ♡ﾟ･｡♥</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2018/10/23/fast-slow-pointer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MP5A3">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MP5A3">
+      <meta itemprop="description" content="♥｡･ﾟ♡ﾟ･｡♥">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【算法分析】如何理解快慢指针？判断linked list中是否有环、找到环的起始节点位置。以Leetcode 141. Linked List Cycle, 142. Linked List Cycle II 为例 | Python实现 | MP5A3">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【算法分析】如何理解快慢指针？判断linked list中是否有环、找到环的起始节点位置。以Leetcode 141. Linked List Cycle, 142. Linked List Cycle II 为例 | Python实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-23 11:44:18" itemprop="dateCreated datePublished" datetime="2018-10-23T11:44:18-07:00">2018-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-Structures-and-Algorithms/" itemprop="url" rel="index"><span itemprop="name">Data Structures and Algorithms</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-Structures-and-Algorithms/Online-Judge/" itemprop="url" rel="index"><span itemprop="name">Online Judge</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/10/23/fast-slow-pointer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/23/fast-slow-pointer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>快慢指针经常用于链表(linked list)中环(Cycle)相关的问题。LeetCode中对应题目分别是：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle/">141. Linked List Cycle</a> 判断linked list中是否有环</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle-ii/description/">142. Linked List Cycle II</a> 找到环的起始节点（entry node）位置。</li>
+</ul>
+<span id="more"></span>
+
+
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li>快指针(fast pointer)和慢指针(slow pointer)都从链表的head出发。</li>
+<li>慢指针每次移动一格，而快指针每次移动两格。</li>
+<li>如果快慢指针能相遇，则证明链表中有环；否则如果走到头了依然没有相遇，则没有环。</li>
+</ul>
+<p>快慢指针的具体代码(C++, Python, Java版本)可以参考<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/">这个链接</a>。</p>
+<h1 id="问题详解-为什么如果有环，则快慢指针必定会相遇？"><a href="#问题详解-为什么如果有环，则快慢指针必定会相遇？" class="headerlink" title="问题详解 - 为什么如果有环，则快慢指针必定会相遇？"></a>问题详解 - 为什么如果有环，则快慢指针必定会相遇？</h1><p>如果链表里有环，那么环的初始状态大概是像下图这样的：<br><img src="/2018/10/23/fast-slow-pointer/image1.png"></p>
+<p>从数学的角度来分析，我们假设以下三个变量：</p>
+<ul>
+<li>$L_1$: 起始节点(head node)到环起始节点(entry node)的距离。当然，如果起始节点和环起始节点是同一个节点，那么这个距离也可能为0。</li>
+<li>$C$: 从环起始节点出发，绕一圈后再回到起始节点所需要走的距离，这里有环的话，就必有 $C\gt 0$。</li>
+<li>$x$: 慢指针移动的距离。假设我们的慢指针移动了 $x$ 步，那么快指针就移动了 $2x$ 步。</li>
+</ul>
+<p>已知对于一个给定的链表，$C$ 和 $L_1$ 都是固定值，不会产生改变。而慢指针每走一步，$x$都会上升。那也就是说，随着 $x$ 上升，必定会有一个时刻存在一个整数 $w$，使得 $x&#x3D;w\cdot C$。那么也就是说一定存在一个 $x$ 使得以下这个式子成立：<br>$$x \equiv 0 \pmod{C}$$<br>那么以下这个式子也成立：<br>$$2x \equiv 0 \pmod{C}$$<br>可以得出：<br>$$2x \equiv x \pmod{C}$$<br>再在两边都减去$L_1$，得出：<br>$$2x-L_1 \equiv x-L_1 \pmod{C}$$<br>$2x-L_1 \pmod{C}$ 是此时快指针在环里距离环起始节点的距离，$x-L_1 \pmod{C}$ 是此时慢指针在环里距离环起始节点的距离，而他们是一样的，说明此时快指针和慢指针是在同一个节点上的。也就是说，到这里我们从数学的角度证明了：只要有环，快慢指针一定会相遇。而且相遇的时候，慢指针走过的距离 $x$ 一定是环长 $C$ 的倍数。</p>
+<h1 id="问题详解-如何找到环的起始节点？"><a href="#问题详解-如何找到环的起始节点？" class="headerlink" title="问题详解 - 如何找到环的起始节点？"></a>问题详解 - 如何找到环的起始节点？</h1><p>刚才我们已经证明了，假设链表有环，那么当快慢指针走了一阵子后，一定会在环里某一个地方相遇。并且相遇的时候，慢指针走过的距离 $x$ 一定是环长 $C$ 的倍数。</p>
+<p>我们想要找到环的起始节点，其实本质上就是想知道，$L_1$ 到底是多少。</p>
+<p>参考以下图片，假设我们的快慢指针在环里某个地方相遇。</p>
+<p><img src="/2018/10/23/fast-slow-pointer/image2.png"></p>
+<p>我们现在定义以下变量：</p>
+<ul>
+<li>$x$: 慢指针和快指针相遇的时候，慢指针走了的距离。</li>
+<li>注意到，因为快指针走了的距离总是慢指针走了的距离的两倍，因此 $2x$ 是慢指针和快指针相遇的时候，快指针走了的距离。</li>
+</ul>
+<p>我们再补充一个变量:</p>
+<ul>
+<li>$L_2$: 环起始节点(entry node)到快慢指针相遇节点的距离。</li>
+</ul>
+<p>当快慢指针相遇的时候，一定有 $x&#x3D;L_1+L_2+n  C$，这里 $n$ 是指慢指针在环内走过的完整圈数。因此可以得出：<br>$$L_1+L_2&#x3D;x-n C$$<br>已知相遇的时候有<br>$$x \equiv 0 \pmod{C}$$<br>而且以下式子一定成立<br>$$nC \equiv 0 \pmod{C}$$<br>因此$$x-nC \equiv 0 \pmod{C}$$<br>那么$$L_1+L_2 \equiv 0 \pmod{C}$$所以$$L_1 \equiv -L_2 \pmod{C}$$ 也有 $$L_1 \equiv C-L_2 \pmod{C}$$<br>而右边的 $C-L_2$ 也正是慢指针在环内想要再次到达环起始节点所需要走的距离。<br>因此，我们如果再用两个指针分别从起始节点(head)和刚才快慢指针的相遇点出发，以同样的速度移动，那么他们在某一个时间一定会在环起始节点(entry node)相遇。<br>这里我们可能会问，为什么我们能确定这两个指针第一次相遇的点一定是环起始节点(entry node)而不是别的呢？假设这个新的从起始节点(head)出发的指针走了 $t$ 步，当 $t\lt L_1$ 时，他们必不可能相遇，因为这个新的从起始节点(head)出发的指针还不在环内。而当 $t&#x3D;L_1$ 时，我们刚才证明了他们一定会相遇。</p>
+<h1 id="LeetCode对应问题及其代码实现"><a href="#LeetCode对应问题及其代码实现" class="headerlink" title="LeetCode对应问题及其代码实现"></a>LeetCode对应问题及其代码实现</h1><h2 id="判断Linked-List中是否有环-141-Linked-List-Cycle"><a href="#判断Linked-List中是否有环-141-Linked-List-Cycle" class="headerlink" title="判断Linked List中是否有环 (141. Linked List Cycle)"></a>判断Linked List中是否有环 (141. Linked List Cycle)</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle/">LeetCode 141. Linked List Cycle - 判断Linked List中是否有环</a> </p>
+<ul>
+<li>时间复杂度O(n)</li>
+<li>空间复杂度O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hasCycle</span>(<span class="params">self, head</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head: ListNode</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        slow = head</span><br><span class="line">        fast = head</span><br><span class="line">        <span class="keyword">while</span>(fast.<span class="built_in">next</span> <span class="keyword">and</span> fast.<span class="built_in">next</span>.<span class="built_in">next</span>):</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">if</span> slow == fast:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="找到环的起始节点-entry-node-位置-142-Linked-List-Cycle-II"><a href="#找到环的起始节点-entry-node-位置-142-Linked-List-Cycle-II" class="headerlink" title="找到环的起始节点(entry node)位置 (142. Linked List Cycle II)"></a>找到环的起始节点(entry node)位置 (142. Linked List Cycle II)</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle-ii/description/">142. Linked List Cycle II - 找到环的起始节点（Entry Node）位置</a> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">detectCycle</span>(<span class="params">self, head</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        slow, fast, new_node = head, head, head</span><br><span class="line">        <span class="keyword">while</span>(fast.<span class="built_in">next</span> <span class="keyword">and</span> fast.<span class="built_in">next</span>.<span class="built_in">next</span>):</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">if</span> slow == fast:</span><br><span class="line">                <span class="keyword">while</span> slow != new_node:</span><br><span class="line">                    new_node = new_node.<span class="built_in">next</span></span><br><span class="line">                    slow = slow.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">return</span> new_node      </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Data-Structures-and-Algorithms/" rel="tag"># Data Structures and Algorithms</a>
+              <a href="/tags/Online-Judge/" rel="tag"># Online Judge</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/22/handle-imbalanced-data/" rel="prev" title="【机器学习】如何处理机器学习中的非均衡数据集？">
+                  <i class="fa fa-angle-left"></i> 【机器学习】如何处理机器学习中的非均衡数据集？
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">MP5A3</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">32 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"mp5a3","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>
