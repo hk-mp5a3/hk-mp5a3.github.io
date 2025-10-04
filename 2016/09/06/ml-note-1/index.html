@@ -20,28 +20,48 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hk-mp5a3.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="问题的出现这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：">
+    <meta name="description" content="文章内容均来自斯坦福大学的Andrew Ng教授讲解的Machine Learning课程，本文是针对该课程的个人学习笔记，如有疏漏，请以原课程所讲述内容为准。感谢博主Rachel Zhang的个人笔记，为我做个人学习笔记提供了很好的参考和榜样。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【TensorFlow】ReluGrad input is not finite. Tensor had NaN values">
-<meta property="og:url" content="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/index.html">
+<meta property="og:title" content="机器学习笔记 (一) 单变量线性回归 Linear Regression with One Variable">
+<meta property="og:url" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/index.html">
 <meta property="og:site_name" content="MP5A3">
-<meta property="og:description" content="问题的出现这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：">
+<meta property="og:description" content="文章内容均来自斯坦福大学的Andrew Ng教授讲解的Machine Learning课程，本文是针对该课程的个人学习笔记，如有疏漏，请以原课程所讲述内容为准。感谢博主Rachel Zhang的个人笔记，为我做个人学习笔记提供了很好的参考和榜样。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2017-07-25T06:05:08.000Z">
-<meta property="article:modified_time" content="2025-10-04T17:01:21.571Z">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image1.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image2.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image3.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image4.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image5.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image6.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image7.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image8.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image9.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image10.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image11.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image12.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image13.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image14.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image15.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image16.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image17.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image18.png">
+<meta property="og:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image19.png">
+<meta property="article:published_time" content="2016-09-06T17:12:04.000Z">
+<meta property="article:modified_time" content="2025-10-04T17:40:49.439Z">
 <meta property="article:author" content="MP5A3">
-<meta property="article:tag" content="TensorFlow">
-<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/image1.png">
 
 
-<link rel="canonical" href="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/">
+<link rel="canonical" href="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/","path":"2017/07/24/relugrad-input-is-not-finite/","title":"【TensorFlow】ReluGrad input is not finite. Tensor had NaN values"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hk-mp5a3.github.io/2016/09/06/ml-note-1/","path":"2016/09/06/ml-note-1/","title":"机器学习笔记 (一) 单变量线性回归 Linear Regression with One Variable"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>【TensorFlow】ReluGrad input is not finite. Tensor had NaN values | MP5A3</title>
+<title>机器学习笔记 (一) 单变量线性回归 Linear Regression with One Variable | MP5A3</title>
   
 
 
@@ -169,7 +189,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E5%87%BA%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">问题的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E9%80%9F%E7%8E%87"><span class="nav-number">2.1.</span> <span class="nav-text">学习速率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-Linear-Regression-with-One-Variable"><span class="nav-number">1.</span> <span class="nav-text">单变量线性回归 Linear Regression with One Variable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0Cost-Function"><span class="nav-number">1.1.</span> <span class="nav-text">代价函数Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95Gradient-Descent"><span class="nav-number">1.2.</span> <span class="nav-text">梯度下降算法Gradient Descent</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -215,7 +235,7 @@
 
     <div class="main-inner post posts-expand">
 
-<article class="post posts-expand ">
+<article class="post posts-expand highlight-bold">
   
 
 
@@ -224,7 +244,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2017/07/24/relugrad-input-is-not-finite/">
+    <link itemprop="mainEntityOfPage" href="https://hk-mp5a3.github.io/2016/09/06/ml-note-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -237,12 +257,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="【TensorFlow】ReluGrad input is not finite. Tensor had NaN values | MP5A3">
+      <meta itemprop="name" content="机器学习笔记 (一) 单变量线性回归 Linear Regression with One Variable | MP5A3">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【TensorFlow】ReluGrad input is not finite. Tensor had NaN values
+          机器学习笔记 (一) 单变量线性回归 Linear Regression with One Variable
         </h1>
 
         <div class="post-meta-container">
@@ -253,7 +273,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2017-07-24 23:05:08" itemprop="dateCreated datePublished" datetime="2017-07-24T23:05:08-07:00">2017-07-24</time>
+      <time title="创建时间：2016-09-06 10:12:04" itemprop="dateCreated datePublished" datetime="2016-09-06T10:12:04-07:00">2016-09-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -261,7 +281,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
         </span>
     </span>
 
@@ -281,8 +305,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2017/07/24/relugrad-input-is-not-finite/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/24/relugrad-input-is-not-finite/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2016/09/06/ml-note-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/06/ml-note-1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -293,14 +317,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>645</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -310,32 +334,34 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>这个问题是我基于TensorFlow使用CNN训练MNIST数据集的时候遇到的。关键的相关代码是以下这部分：</p>
+    <div class="post-body" itemprop="articleBody"><p>文章内容均来自斯坦福大学的<a target="_blank" rel="noopener" href="https://www.andrewng.org/">Andrew Ng</a>教授讲解的<a target="_blank" rel="noopener" href="https://www.coursera.org/learn/machine-learning/home/welcome">Machine Learning课程</a>，本文是针对该课程的个人学习笔记，如有疏漏，请以原课程所讲述内容为准。感谢博主<a target="_blank" rel="noopener" href="https://blog.csdn.net/abcjennifer">Rachel Zhang</a>的个人笔记，为我做个人学习笔记提供了很好的参考和榜样。</p>
 <span id="more"></span>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y_conv))</span><br><span class="line">train_step = tf.train.AdamOptimizer(<span class="number">1e-4</span>).minimize(cross_entropy)</span><br></pre></td></tr></table></figure>
-
-<p>学习速率是$(1e-4)$的时候是没有问题，但是当我把学习速率调到$0.01&#x2F;0.5$的时候，很快就会报错。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorflow.python.framework.errors.InvalidArgumentError: ReluGrad input is not finite. : Tensor had NaN values</span><br></pre></td></tr></table></figure>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="学习速率"><a href="#学习速率" class="headerlink" title="学习速率"></a>学习速率</h3><p>于是我尝试加上几行代码，希望能把<code>y_conv</code>和<code>cross_entropy</code>的状态反映出来。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y_conv = tf.Print(y_conv, [y_conv], <span class="string">&quot;y_conv: &quot;</span>)</span><br><span class="line">cross_entropy = tf.Print(cross_entropy, [cross_entropy], <span class="string">&quot;cross_entropy: &quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>当learning rate&#x3D;0.01时，程序会报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [3.0374929e-06 0.0059775524 0.980205...]</span><br><span class="line">step 0, training accuracy 0.04</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [9.2028862e-10 1.4812358e-05 0.044873074...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [648.49146]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.024463326 1.4828938e-31 0...]</span><br><span class="line">step 1, training accuracy 0.2</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [2.4634053e-11 3.3087209e-34 0...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [nan]</span><br><span class="line">step 2, training accuracy 0.14</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [nan nan nan...]</span><br><span class="line">W tensorflow/core/common_runtime/executor.cc:1027] 0x7ff51d92a940 Compute status: Invalid argument: ReluGrad input is not finite. : Tensor had NaN values</span><br></pre></td></tr></table></figure>
-<p>当learning rate $&#x3D;1e-4$时，程序不会报错。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.00056920078 8.4922984e-09 0.00033719366...]</span><br><span class="line">step 0, training accuracy 0.14</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [7.0613837e-10 9.28294e-09 0.00016230672...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [439.95135]</span><br><span class="line">step 1, training accuracy 0.16</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.031509314 3.6221365e-05 0.015359053...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [3.7112056e-07 1.8543299e-09 8.9234991e-06...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [436.37653]</span><br><span class="line">step 2, training accuracy 0.12</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [0.015578311 0.0026688741 0.44736364...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] y_conv: [6.0428465e-07 0.0001744287 0.026451336...]</span><br><span class="line">I tensorflow/core/kernels/logging_ops.cc:64] cross_entropy: [385.33765]</span><br></pre></td></tr></table></figure>
-<p>至此，我们可以看到，学习速率太大是产生error其中一个原因。</p>
-<p>参考斯坦福<a target="_blank" rel="noopener" href="https://cs224d.stanford.edu/lecture_notes/LectureNotes4.pdf">CS 224D的Lecture Note</a>，在训练深度神经网络的时候，出现NaN比较大的可能是因为学习速率过大，梯度值过大，产生梯度爆炸。</p>
-<blockquote>
-<p>During experimentation, once the gradient value grows extremely large, it causes an overflow (i.e. NaN) which is easily detectable at runtime; this issue is called the Gradient Explosion Problem.</p>
-</blockquote>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
-<li>适当减小学习速率 </li>
-<li>加入Gradient clipping的方法。 Gradient clipping的方法最早是由Thomas Mikolov提出的。每当梯度达到一定的阈值，就把他们设置回一个小一些的数字。<br>Refer to the <a target="_blank" rel="noopener" href="https://cs224d.stanford.edu/lecture_notes/LectureNotes4.pdf">lecture note of Stanford CS 224D</a>, use gradient clipping. <blockquote>
-<p>To solve the problem of exploding gradients, Thomas Mikolov first introduced a simple heuristic solution that clips gradients to a small number whenever they explode. That is, whenever they reach a certain threshold, they are set back to a small number as shown in Algorithm 1.</p>
-</blockquote>
-</li>
-</ol>
-<p>Algorithm 1:<br>$\frac{\partial E}{\partial W}\to g$<br>if $ \Vert g\Vert\ge threshold$  then<br>$\frac {threshold}{\Vert g\Vert} g\to g$<br>end if</p>
+<h1 id="单变量线性回归-Linear-Regression-with-One-Variable"><a href="#单变量线性回归-Linear-Regression-with-One-Variable" class="headerlink" title="单变量线性回归 Linear Regression with One Variable"></a>单变量线性回归 Linear Regression with One Variable</h1><h2 id="代价函数Cost-Function"><a href="#代价函数Cost-Function" class="headerlink" title="代价函数Cost Function"></a>代价函数Cost Function</h2><p>在单变量线性回归中，已知有一个训练集有一些关于$x$、$y$的数据(如”×”所示)，当我们的预测值$h(x)$被假设为$h(x)&#x3D;\theta_{0}+\theta_{1}x$时，我们要使得$\theta_{0}$、$\theta_{1}$两个参数所表示的直线(蓝线)尽量与这些数据点很好地拟合。想要实现这个思路，就需要使得同一$x$对应的$h(x)$与$y$ 尽量相近。在这样的假设中，$J(\theta_{0},\theta_{1})$被称为<strong>Cost Function</strong>(也称平方误差代价函数)，我们在实验过程中应该使得这一函数值尽量小。在这样的$h(x)$中，只出现了一个变量$x$，因此也叫<strong>单变量(One Variable)</strong>；以后也可能会出现多变量的情况，比如$h(x_{1},x_{2})&#x3D;\theta_{0}+\theta_{1}x+\theta_{2}x^{2}$<br><img src="/2016/09/06/ml-note-1/image1.png"><br><img src="/2016/09/06/ml-note-1/image2.png"><br><img src="/2016/09/06/ml-note-1/image3.png"></p>
+<p>单参数的情况下非常容易理解：在这里，Andrew Ng将h(x)简化，使得$\theta_{0}&#x3D;0$，只考虑$\theta_{1}$。再举例示范了一下由$J(\theta_{1})$确定$\theta_{1}$值的过程。<br><img src="/2016/09/06/ml-note-1/image4.png"></p>
+<p>单参数情况下，得出的$J(\theta_{1})$是一个弓形，而当有两个参数的时候则有所不同。<br>有两个参数的情况下，得出的$J(\theta_{0},\theta_{1})$是一个3D的碗状图形，三个坐标轴分别代表了两个参数$\theta_{0},\theta_{1}$和代价函数$J(\theta_{0},\theta_{1})$。<br><img src="/2016/09/06/ml-note-1/image5.png"></p>
+<p>但通常，我们用<strong>轮廓图</strong>(Contour Plot or Coutour Figure)来表示这样的3D模型。<br><img src="/2016/09/06/ml-note-1/image6.png"></p>
+<p>上右即为轮廓图。在同一个椭圆上的各个点，$J(\theta_{0},\theta_{1})$的值是相同的，而越靠中心的椭圆则J值越小。</p>
+<h2 id="梯度下降算法Gradient-Descent"><a href="#梯度下降算法Gradient-Descent" class="headerlink" title="梯度下降算法Gradient Descent"></a>梯度下降算法Gradient Descent</h2><p>梯度下降算法被广泛运用在机器学习领域中。本章中，主要介绍利用<strong>梯度下降算法</strong>(Gradient Descent)最小化线性回归的代价函数。<br><img src="/2016/09/06/ml-note-1/image7.png"></p>
+<p>1 初始设定$\theta_{0}$与$\theta_{1}$，一般将二者都初始化为0</p>
+<p>2 不断改变$\theta_{0}$与$\theta_{1}$，使得$J$减小  </p>
+<p>3 直到找到最小值时结束</p>
+<p><img src="/2016/09/06/ml-note-1/image8.png"></p>
+<p>把Cost Function的图形想成山，而你在山上的某一点，那么梯度下降算法就是环顾四周，找到最快下山的路径，迈出一步，然后再环顾四周，找到最快下山的路径，再迈出一步，如此反复。</p>
+<p>但梯度下降算法有一个特点，如果你从稍微偏一些的角度作为初始化点，那么完全可能去到另一个局部最优解的点上，与之前的完全不同。例如下图：<br><img src="/2016/09/06/ml-note-1/image9.png"></p>
+<p>但事实上<strong>线性回归的代价函数总是一个凸函数(Convex Function)，这样的函数只存在一个全局最优解，不存在有多个局部最优解的情况</strong>，所以不需要考虑这个问题。</p>
+<p>具体的算法如下：<br><img src="/2016/09/06/ml-note-1/image10.png"></p>
+<p>其中α表示<strong>学习速率</strong>(Learning Rate)表示我们以多大幅度更新$theta_j$<br><img src="/2016/09/06/ml-note-1/image11.png"></p>
+<p>注意：我们应该像左边的情况这样实现<strong>同步更新(Simultaneous Update)</strong>,否则就会出现错误。</p>
+<p>例题(考察了一下同步更新)：<br><img src="/2016/09/06/ml-note-1/image12.png"><br><img src="/2016/09/06/ml-note-1/image13.png"></p>
+<p>对于粉色方框里的导数项，则表示了与蓝线相切的红线的斜率。<br><img src="/2016/09/06/ml-note-1/image14.png"></p>
+<p>关于<strong>学习速率α，如果过小，那么梯度下降的速度会很慢；如果过大，那么可能难以收敛，甚至会发散</strong>。所以应该适当地选择α。<br><img src="/2016/09/06/ml-note-1/image15.png"></p>
+<p>如果出现$\theta_{1}$已是局部最优解的情况，那么在那一点，它的切线斜率为0，因此$\theta_{1}$不会改变。可见，<strong>即使α不变，梯度下降算法也能找到局部最优点</strong>。</p>
+<p><img src="/2016/09/06/ml-note-1/image16.png"></p>
+<p>由于每接近局部最优解一些，梯度下降算法都会自动的把下降幅度变小，因此<strong>无需随之减小α</strong><br><img src="/2016/09/06/ml-note-1/image17.png"></p>
+<p>推导可得：<br><img src="/2016/09/06/ml-note-1/image18.png"></p>
+<p>而后引入批量梯度下降算法的概念：即在梯度下降算法的每一步都用到了所有的训练样本。</p>
+<p><img src="/2016/09/06/ml-note-1/image19.png"></p>
+<p>在数据量较大的情况下，梯度下降算法比正规方程适用。</p>
 
     </div>
 
@@ -345,21 +371,21 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
-              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2016/11/11/activation-function-in-dl/" rel="prev" title="浅谈深度学习中的激活函数 The Activation Function in Deep Learning">
-                  <i class="fa fa-angle-left"></i> 浅谈深度学习中的激活函数 The Activation Function in Deep Learning
+                <a href="/2016/09/01/matlab-plot-vector-field/" rel="prev" title="MATLAB中矢量场图的绘制 (quiver&#x2F;quiver3&#x2F;dfield&#x2F;pplane)">
+                  <i class="fa fa-angle-left"></i> MATLAB中矢量场图的绘制 (quiver/quiver3/dfield/pplane)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2018/08/22/handle-imbalanced-data/" rel="next" title="【机器学习】如何处理机器学习中的非均衡数据集？">
-                  【机器学习】如何处理机器学习中的非均衡数据集？ <i class="fa fa-angle-right"></i>
+                <a href="/2016/11/07/foundation-of-cnn-1/" rel="next" title="深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks)">
+                  深度学习笔记 (一)  卷积神经网络基础 (Foundation of Convolutional Neural Networks) <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
